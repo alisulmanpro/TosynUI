@@ -1,0 +1,37 @@
+[data-tosyn] .setup-demo-shell {
+  display: grid;
+  gap: var(--tosyn-space-lg);
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: var(--tosyn-space-lg);
+}
+
+[data-tosyn] .setup-demo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 var(--tosyn-space-md);
+  border: 1px solid var(--tosyn-color-action);
+  border-radius: var(--tosyn-radius-sm);
+  color: var(--tosyn-color-action-ink);
+  background: var(--tosyn-color-action);
+  font: inherit;
+  cursor: pointer;
+  transition: transform var(--tosyn-motion-fast) var(--tosyn-motion-ease);
+}
+
+[data-tosyn] .setup-demo-button:hover {
+  transform: translateY(-1px);
+}
+
+[data-tosyn] .setup-demo-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--tosyn-color-action) 35%, transparent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tosyn] .setup-demo-button {
+    transition-duration: 0ms;
+  }
+}

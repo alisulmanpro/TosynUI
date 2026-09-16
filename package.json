@@ -1,20 +1,37 @@
 {
   "name": "tosynui",
+  "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=24.0.0 <25.0.0",
+    "pnpm": "12.4.1"
+  },
   "scripts": {
+    "dev": "pnpm --filter @tosynui/core... build && turbo run dev --parallel",
     "build": "turbo run build",
-    "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "typecheck": "turbo run typecheck",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "test": "turbo run test",
+    "test:e2e": "pnpm build && playwright test",
+    "clean": "node scripts/clean.mjs"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "turbo": "^2.10.8",
-    "typescript": "5.9.2"
-  },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
+    "@eslint/js": "9.39.1",
+    "@playwright/test": "1.63.0",
+    "@tosynui/build": "workspace:*",
+    "@tosynui/contracts": "workspace:*",
+    "@tosynui/core": "workspace:*",
+    "@types/node": "24.0.0",
+    "eslint": "10.10.0",
+    "prettier": "3.9.6",
+    "stylelint": "17.15.0",
+    "turbo": "2.10.13",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.0",
+    "vitest": "5.0.0"
   }
 }

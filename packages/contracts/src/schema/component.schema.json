@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tosynui.dev/schema/component-setup-demo.json",
+  "title": "TosynUI setup demonstration contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "version", "description", "styling", "structure"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "0.1" },
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "description": { "type": "string", "minLength": 1 },
+    "styling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseClass", "modifiers"],
+      "properties": {
+        "baseClass": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "modifiers": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rootElement", "requiredAttributes"],
+      "properties": {
+        "rootElement": { "type": "string", "minLength": 1 },
+        "requiredAttributes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

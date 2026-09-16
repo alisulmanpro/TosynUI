@@ -1,0 +1,15 @@
+node_modules
+.pnpm-store
+.turbo
+dist
+.next
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+*.woff
+*.woff2
+Information.md
+Implmentation.md
+
+apps/docs/next-env.d.ts

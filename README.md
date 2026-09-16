@@ -1,159 +1,78 @@
-# Turborepo starter
+# TosynUI
 
-This Turborepo starter is maintained by the Turborepo core team.
+TosynUI is being developed as a class-based CSS library designed for AI generation and human understanding.
+This repository currently contains only the development foundation and setup demonstrations. It does not yet
+implement the product roadmap.
 
-## Using this example
+## Quick start
 
-Run the following command:
+Use Node.js 24 LTS and pnpm 12.4.1.
 
-```sh
-npx create-turbo@latest
+```text
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
-## What's inside?
+The development servers are available at:
 
-This Turborepo includes the following packages/apps:
+- Playground: http://localhost:5173
+- React fixture: http://localhost:5174
+- Documentation: http://localhost:3000
 
-### Apps and Packages
+## Commands
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```text
+pnpm dev
+pnpm build
+pnpm lint
+pnpm typecheck
+pnpm format
+pnpm format:check
+pnpm test
+pnpm test:e2e
+pnpm clean
 ```
 
-Without global `turbo`, use your package manager:
+`pnpm clean` removes generated output only. It does not remove source files or the lockfile.
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
+## Toolchain
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+| Tool              | Version                              |
+| ----------------- | ------------------------------------ |
+| Node.js           | 24 LTS (24.19.0 verified on Windows) |
+| pnpm              | 12.4.1                               |
+| Turborepo         | 2.10.13                              |
+| TypeScript        | 5.9.3                                |
+| Vite              | 8.3.0                                |
+| Next.js           | 16.3.5                               |
+| React / React DOM | 19.3.0                               |
+| PostCSS           | 8.5.28                               |
+| Ajv               | 8.20.0                               |
+| ESLint            | 10.10.0                              |
+| Stylelint         | 17.15.0                              |
+| Prettier          | 3.9.6                                |
+| Vitest            | 5.0.0                                |
+| Playwright Test   | 1.63.0                               |
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## Workspace map
 
-```sh
-turbo build --filter=docs
-```
+| Directory            | Purpose                                                                                         |
+| -------------------- | ----------------------------------------------------------------------------------------------- |
+| `packages/core`      | CSS source, initial custom-property tokens, scoped setup demonstration, and stylesheet exports. |
+| `packages/contracts` | JSON Schema, Ajv validation, and TypeScript contract types.                                     |
+| `packages/build`     | Deterministic PostCSS assembly, token CSS generation, contract validation, and watch mode.      |
+| `apps/playground`    | Plain HTML and TypeScript Vite consumer of the public core CSS export.                          |
+| `apps/react-fixture` | Minimal React and TypeScript Vite consumer of the same CSS export.                              |
+| `apps/docs`          | Small Next.js documentation site for setup guidance and public export examples.                 |
 
-Without global `turbo`:
+The repository intentionally does not contain Studio, MCP, the AI checker, native applications, or future services.
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+## Where to begin
 
-### Develop
+- Write CSS in `packages/core/src/index.css`, `base.css`, and `setup-demo.css`.
+- Add or revise initial values in `packages/core/src/tokens.json`.
+- Add contract schemas and TypeScript validation exports in `packages/contracts/src`.
+- Keep setup demonstration content clearly separate from future production component work.
 
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+The core package is React-free. Consumers must import `@tosynui/core/styles.css` through its public package export;
+the fixtures are intentionally small so package resolution and browser rendering remain easy to inspect.

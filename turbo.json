@@ -1,19 +1,37 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
-  "ui": "tui",
+  "globalDependencies": [
+    "pnpm-lock.yaml",
+    "package.json",
+    "pnpm-workspace.yaml",
+    "tsconfig.base.json",
+    "eslint.config.mjs",
+    "stylelint.config.mjs",
+    ".prettierrc.json",
+    ".nvmrc",
+    ".node-version"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "inputs": ["$TURBO_DEFAULT$", "../../eslint.config.mjs", "../../stylelint.config.mjs"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "typecheck": {
+      "dependsOn": ["^typecheck", "^build"],
+      "inputs": ["$TURBO_DEFAULT$", "../../tsconfig.base.json"]
+    },
+    "test": {
+      "dependsOn": ["build", "^build"],
+      "inputs": ["$TURBO_DEFAULT$", "../../vitest.config.ts"],
+      "outputs": ["coverage/**"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     }

@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "0.1",
+  "id": "setup-demo",
+  "version": "0.1.0",
+  "description": "A setup-only contract used to verify validation infrastructure.",
+  "styling": { "baseClass": "setup-demo-button", "modifiers": [] },
+  "structure": { "rootElement": "button", "requiredAttributes": ["type"] }
+}
