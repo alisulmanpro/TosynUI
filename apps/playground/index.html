@@ -3,10 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TosynUI setup playground</title>
+    <title>Tosyn playground</title>
   </head>
   <body>
-    <main id="app"></main>
+    <main>
+      <header>
+        <p class="eyebrow">Tosyn playground</p>
+        <h1>Validate an intent document</h1>
+        <p>Edit the document or paste one written by an AI model. It is checked as you type.</p>
+      </header>
+      <div class="workspace">
+        <label class="editor">
+          <span>Document (JSON)</span>
+          <textarea id="document" spellcheck="false" rows="28"></textarea>
+        </label>
+        <section aria-labelledby="results-title">
+          <h2 id="results-title">Result</h2>
+          <p id="status" role="status"></p>
+          <ol id="diagnostics"></ol>
+        </section>
+      </div>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -7,11 +7,11 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --max-warnings 0 && stylelint \"app/**/*.css\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tosynui/core": "workspace:*",
+    "@tosynui/spec": "workspace:*",
     "next": "16.3.5",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -20,6 +20,7 @@
     "@types/node": "24.0.0",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "stylelint": "17.15.0",
     "typescript": "5.9.3"
   }
 }

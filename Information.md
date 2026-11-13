@@ -9,6 +9,10 @@
 
 > **A shared interface language that AI can use efficiently and humans can read, understand, and confidently edit.**
 
+> **Update (13 November 2026):** The product direction has moved from a class-based CSS library to
+> an intent language. The goals in this document still apply; the class-based mechanism described in
+> sections 5 and 9 does not. See [ADR 0001](docs/adr/0001-intent-first-architecture.md).
+
 ## 1. Read this first
 
 TosynUI is a proposed class-based UI library whose **primary user is AI and secondary user is the human developer**.
