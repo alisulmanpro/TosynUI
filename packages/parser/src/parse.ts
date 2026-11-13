@@ -26,6 +26,13 @@ export interface ParseResult {
   diagnostics: Diagnostic[];
 }
 
+/** Anything reported against a path in the document, such as a diagnostic or a rule finding. */
+export interface Locatable {
+  path: string;
+  line?: number;
+  column?: number;
+}
+
 export interface ParseOptions {
   /** Catalog used to read boolean attributes. Defaults to the current catalog. */
   catalog?: Catalog;
@@ -187,10 +194,10 @@ export function parseMarkup(source: string, options: ParseOptions = {}): ParseRe
  * Adds `line` and `column` to diagnostics from their paths, using the closest located ancestor.
  * Diagnostics that already have a position are returned unchanged.
  */
-export function attachLocations(
-  diagnostics: readonly Diagnostic[],
+export function attachLocations<T extends Locatable>(
+  diagnostics: readonly T[],
   locations: ReadonlyMap<string, SourceLocation>,
-): Diagnostic[] {
+): T[] {
   return diagnostics.map((diagnostic) => {
     if (diagnostic.line !== undefined) return diagnostic;
     let path = diagnostic.path;
