@@ -175,6 +175,9 @@ importers:
       '@playwright/test':
         specifier: 1.63.0
         version: 1.63.0
+      '@tosynui/cli':
+        specifier: workspace:*
+        version: link:packages/cli
       '@tosynui/parser':
         specifier: workspace:*
         version: link:packages/parser
@@ -258,6 +261,68 @@ importers:
       vite:
         specifier: 8.3.0
         version: 8.3.0(@types/node@24.0.0)
+
+  packages/ai:
+    dependencies:
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../rules
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+    devDependencies:
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
+  packages/cli:
+    dependencies:
+      '@tosynui/ai':
+        specifier: workspace:*
+        version: link:../ai
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@tosynui/render-html':
+        specifier: workspace:*
+        version: link:../render-html
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../rules
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+    devDependencies:
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
 
   packages/parser:
     dependencies:
