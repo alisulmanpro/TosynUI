@@ -34,6 +34,7 @@ is wrong. The catalog then checks elements, attributes, nesting, content and uni
 
 | Code                      | Meaning                                                  |
 | ------------------------- | -------------------------------------------------------- |
+| `syntax-error`            | The markup could not be parsed cleanly (parser only).    |
 | `invalid-structure`       | The document does not match the document schema.         |
 | `unsupported-version`     | The document's `tosyn` version differs from the catalog. |
 | `invalid-root`            | The document does not start with the root element.       |

@@ -1,0 +1,17 @@
+<screen name="account-settings" purpose="Update profile details or permanently delete the account.">
+  <section name="profile">
+    <heading>Profile</heading>
+    <field name="full-name" label="Full name" required />
+    <field name="phone" label="Phone number" kind="tel" hint="Used only for account recovery." />
+    <field name="bio" label="About you" kind="multiline" />
+    <feedback tone="success">Your changes were saved.</feedback>
+    <action intent="submit" importance="primary">Save changes</action>
+    <action intent="cancel">Discard</action>
+  </section>
+
+  <section name="danger-zone" emphasis="subdued">
+    <heading>Delete account</heading>
+    <feedback tone="warning">This permanently removes your data and cannot be undone.</feedback>
+    <action intent="delete">Delete my account</action>
+  </section>
+</screen>

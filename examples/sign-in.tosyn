@@ -1,0 +1,15 @@
+<screen name="sign-in" purpose="Sign in to an existing account.">
+  <section name="sign-in" emphasis="featured">
+    <heading>Welcome back</heading>
+    <text tone="muted">Sign in to continue to your dashboard.</text>
+    <field name="email" label="Email address" kind="email" required />
+    <field name="password" label="Password" kind="password" required hint="At least 8 characters." />
+    <action intent="submit" importance="primary">Sign in</action>
+    <action intent="navigate" importance="tertiary" target="/forgot-password">Forgot password?</action>
+  </section>
+
+  <section name="sign-up" emphasis="subdued">
+    <text>New here? Creating an account takes a minute.</text>
+    <action intent="navigate" importance="secondary" target="/sign-up">Create an account</action>
+  </section>
+</screen>
