@@ -11,6 +11,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tosynui/ai": "workspace:*",
+    "@tosynui/parser": "workspace:*",
+    "@tosynui/render-html": "workspace:*",
+    "@tosynui/rules": "workspace:*",
     "@tosynui/spec": "workspace:*"
   },
   "devDependencies": {

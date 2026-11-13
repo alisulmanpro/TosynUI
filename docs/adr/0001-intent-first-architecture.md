@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-11-13
+- **Amended by:** [ADR 0002](0002-parser-and-token-pipeline.md) (parser and token pipeline)
 
 ## Context
 

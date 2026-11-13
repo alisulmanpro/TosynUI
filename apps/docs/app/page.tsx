@@ -1,3 +1,4 @@
+import { rules } from '@tosynui/rules';
 import { catalog } from '@tosynui/spec';
 import type { AttributeDefinition } from '@tosynui/spec';
 
@@ -40,6 +41,9 @@ export default function Page() {
               </a>
             </li>
           ))}
+          <li>
+            <a href="#design-rules">Design rules</a>
+          </li>
         </ul>
       </nav>
 
@@ -92,6 +96,35 @@ export default function Page() {
           </section>
         );
       })}
+      <section id="design-rules" aria-labelledby="design-rules-title">
+        <h2 id="design-rules-title">Design rules</h2>
+        <p>
+          Rules run after validation. Errors make a screen invalid; warnings are reported but
+          allowed.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Rule</th>
+              <th scope="col">Severity</th>
+              <th scope="col">Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rules.map((rule) => (
+              <tr key={rule.id}>
+                <th scope="row">
+                  <code>{rule.id}</code>
+                </th>
+                <td>{rule.severity}</td>
+                <td>
+                  {rule.summary} <span className="guidance-inline">{rule.rationale}</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
     </main>
   );
 }
