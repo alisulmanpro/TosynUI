@@ -9,7 +9,7 @@
     "pnpm": "12.4.1"
   },
   "scripts": {
-    "dev": "pnpm --filter @tosynui/core... build && turbo run dev --parallel",
+    "dev": "turbo run dev --parallel",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
@@ -22,9 +22,7 @@
   "devDependencies": {
     "@eslint/js": "9.39.1",
     "@playwright/test": "1.63.0",
-    "@tosynui/build": "workspace:*",
-    "@tosynui/contracts": "workspace:*",
-    "@tosynui/core": "workspace:*",
+    "@tosynui/spec": "workspace:*",
     "@types/node": "24.0.0",
     "eslint": "10.10.0",
     "prettier": "3.9.6",

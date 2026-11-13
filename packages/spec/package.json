@@ -1,0 +1,37 @@
+{
+  "name": "@tosynui/spec",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Tosyn intent language: element catalog, document schema and validator.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./catalog.json": "./dist/catalog/elements.json",
+    "./schema/catalog.json": "./dist/schema/catalog.schema.json",
+    "./schema/document.json": "./dist/schema/document.schema.json",
+    "./examples/*.json": "./dist/examples/*.json",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage && node ../../scripts/check-exports.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "eslint": "10.10.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

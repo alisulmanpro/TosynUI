@@ -1,0 +1,141 @@
+{
+  "specVersion": "0.1",
+  "root": "screen",
+  "elements": {
+    "screen": {
+      "summary": "The root of one complete interface: a page, a view or an app screen.",
+      "guidance": "Every document has exactly one screen. State in `purpose` what the person using it is trying to get done; renderers and design rules read it.",
+      "attributes": {
+        "name": {
+          "type": "identifier",
+          "required": true,
+          "description": "Stable, kebab-case identifier for the screen."
+        },
+        "purpose": {
+          "type": "string",
+          "required": true,
+          "description": "One sentence describing what the user accomplishes on this screen."
+        }
+      },
+      "content": "elements",
+      "children": ["section"]
+    },
+    "section": {
+      "summary": "A region of the screen that groups content serving one goal.",
+      "guidance": "Sections may be nested. Heading levels are derived from section depth, so authors never choose a heading level by hand.",
+      "attributes": {
+        "name": {
+          "type": "identifier",
+          "required": true,
+          "unique": true,
+          "description": "Stable, kebab-case identifier for the section. Unique within the screen."
+        },
+        "emphasis": {
+          "type": "enum",
+          "values": ["default", "featured", "subdued"],
+          "default": "default",
+          "description": "How strongly the section should stand out from its siblings."
+        }
+      },
+      "content": "elements",
+      "children": ["section", "heading", "text", "field", "action", "feedback"]
+    },
+    "heading": {
+      "summary": "The title of the section that contains it.",
+      "guidance": "Its level comes from the section depth. Use at most one heading per section.",
+      "attributes": {},
+      "content": "text",
+      "children": []
+    },
+    "text": {
+      "summary": "A paragraph of explanatory or supporting copy.",
+      "guidance": "Use `tone=\"muted\"` for secondary copy such as notes and fine print.",
+      "attributes": {
+        "tone": {
+          "type": "enum",
+          "values": ["default", "muted"],
+          "default": "default",
+          "description": "Visual weight of the copy."
+        }
+      },
+      "content": "text",
+      "children": []
+    },
+    "field": {
+      "summary": "A single input that collects one value from the user.",
+      "guidance": "Every field needs a visible `label`. Use `unit` for measured values (for example `kg` or `m`) instead of writing the unit into the label.",
+      "attributes": {
+        "name": {
+          "type": "identifier",
+          "required": true,
+          "unique": true,
+          "description": "Stable identifier for the submitted value. Unique within the screen."
+        },
+        "label": {
+          "type": "string",
+          "required": true,
+          "description": "Visible label that names the value."
+        },
+        "kind": {
+          "type": "enum",
+          "values": ["text", "number", "email", "password", "tel", "date", "multiline"],
+          "default": "text",
+          "description": "The kind of value collected, which selects the input control."
+        },
+        "required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether a value must be provided."
+        },
+        "hint": {
+          "type": "string",
+          "description": "Short help text shown with the field."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement for the value, such as `kg`, `mm` or `PKR`."
+        }
+      },
+      "content": "none",
+      "children": []
+    },
+    "action": {
+      "summary": "Something the user can do: submit, navigate, reset, cancel or delete.",
+      "guidance": "Describe what happens with `intent` and how important it is with `importance`; never describe how it looks. Its text content is the accessible label.",
+      "attributes": {
+        "intent": {
+          "type": "enum",
+          "values": ["submit", "navigate", "reset", "cancel", "delete"],
+          "required": true,
+          "description": "What happens when the action is taken."
+        },
+        "importance": {
+          "type": "enum",
+          "values": ["primary", "secondary", "tertiary"],
+          "default": "secondary",
+          "description": "How important the action is relative to others in the same section."
+        },
+        "target": {
+          "type": "string",
+          "description": "Destination of a `navigate` action, such as a path or screen name."
+        }
+      },
+      "content": "text",
+      "children": []
+    },
+    "feedback": {
+      "summary": "A message that reports a result, status or problem to the user.",
+      "guidance": "Pick `tone` by meaning, not by colour. Renderers announce feedback to assistive technology.",
+      "attributes": {
+        "tone": {
+          "type": "enum",
+          "values": ["info", "success", "warning", "error"],
+          "required": true,
+          "description": "The meaning of the message."
+        }
+      },
+      "content": "text",
+      "children": []
+    }
+  }
+}
