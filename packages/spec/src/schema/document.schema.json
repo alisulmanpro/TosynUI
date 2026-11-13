@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/alisulmanpro/TosynUI/packages/spec/schema/document.schema.json",
+  "title": "Tosyn intent document",
+  "description": "The intermediate representation (IR) of one screen. Parsers produce it from Tosyn markup; validators, design rules and renderers consume it. This schema checks shape only; the element catalog defines which elements and attributes are allowed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tosyn", "root"],
+  "properties": {
+    "tosyn": {
+      "description": "Version of the intent language the document is written in.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "root": { "$ref": "#/$defs/elementNode" }
+  },
+  "$defs": {
+    "node": {
+      "oneOf": [{ "$ref": "#/$defs/elementNode" }, { "$ref": "#/$defs/textNode" }]
+    },
+    "elementNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["element"],
+      "properties": {
+        "element": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "attributes": {
+          "type": "object",
+          "propertyNames": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "additionalProperties": { "type": ["string", "boolean"] }
+        },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/node" }
+        }
+      }
+    },
+    "textNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" }
+      }
+    }
+  }
+}

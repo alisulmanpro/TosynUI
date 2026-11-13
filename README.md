@@ -1,8 +1,42 @@
-# TosynUI
+# Tosyn
 
-TosynUI is being developed as a class-based CSS library designed for AI generation and human understanding.
-This repository currently contains only the development foundation and setup demonstrations. It does not yet
-implement the product roadmap.
+Tosyn is an intent language for user interfaces, designed to be written by AI models and read by
+people.
+
+A Tosyn document describes what each part of a screen does and how important it is. It never
+describes how it looks. Design rules and renderers turn the same document into a consistent result,
+so visual decisions live in one place instead of being re-made, and drifting, on every screen.
+
+```html
+<screen name="bmi-calculator" purpose="Work out body mass index from height and weight.">
+  <section name="inputs" emphasis="featured">
+    <heading>BMI calculator</heading>
+    <field name="height" label="Height" kind="number" unit="cm" required></field>
+    <field name="weight" label="Weight" kind="number" unit="kg" required></field>
+    <action intent="submit" importance="primary">Calculate BMI</action>
+  </section>
+</screen>
+```
+
+> **Status: early design (v0.1).** The element catalog and validator exist. The markup parser,
+> design rules, renderers and AI integrations described below are planned and not yet built. The
+> markup above shows the intended authoring form; today documents are written in the JSON
+> intermediate representation. See [ADR 0001](docs/adr/0001-intent-first-architecture.md) for the
+> design and the reasoning behind it.
+
+## How it fits together
+
+| Layer        | Role                                                                 | Status  |
+| ------------ | -------------------------------------------------------------------- | ------- |
+| Spec         | Element catalog, document schema and validator (`@tosynui/spec`)     | v0.1    |
+| Parser       | Tosyn markup → JSON intermediate representation (IR)                 | Planned |
+| Design rules | Machine-checkable rules for good design ("one primary action", etc.) | Planned |
+| Tokens       | Design values in the W3C DTCG format, exported per platform          | Planned |
+| Renderers    | IR → HTML and CSS first; native platforms later                      | Planned |
+| AI tooling   | MCP server and agent instructions so AI tools can use the spec       | Planned |
+
+Every diagnostic the validator produces names the problem, where it is and how to fix it, so an AI
+model can correct its own output.
 
 ## Quick start
 
@@ -10,69 +44,38 @@ Use Node.js 24 LTS and pnpm 12.4.1.
 
 ```text
 pnpm install --frozen-lockfile
+pnpm build
 pnpm dev
 ```
 
-The development servers are available at:
-
-- Playground: http://localhost:5173
-- React fixture: http://localhost:5174
-- Documentation: http://localhost:3000
+- Playground (validate a document as you type): http://localhost:5173
+- Reference documentation (generated from the catalog): http://localhost:3000
 
 ## Commands
 
 ```text
-pnpm dev
-pnpm build
-pnpm lint
-pnpm typecheck
-pnpm format
-pnpm format:check
-pnpm test
-pnpm test:e2e
-pnpm clean
+pnpm dev            Start the playground and documentation site
+pnpm build          Build every package and app
+pnpm lint           ESLint and Stylelint
+pnpm typecheck      TypeScript in every workspace
+pnpm test           Unit tests with coverage and package export checks
+pnpm test:e2e       Build, then run Playwright end-to-end tests
+pnpm format         Format with Prettier
+pnpm clean          Remove generated output only
 ```
 
-`pnpm clean` removes generated output only. It does not remove source files or the lockfile.
+## Workspace
 
-## Toolchain
+| Directory         | Purpose                                                             |
+| ----------------- | ------------------------------------------------------------------- |
+| `packages/spec`   | The intent language: catalog, JSON Schemas, validator and examples. |
+| `apps/playground` | Vite app that validates a document live and shows each diagnostic.  |
+| `apps/docs`       | Next.js reference site generated from the same catalog.             |
+| `docs/adr`        | Architecture decision records.                                      |
+| `tests/e2e`       | Playwright tests for the apps.                                      |
 
-| Tool              | Version                              |
-| ----------------- | ------------------------------------ |
-| Node.js           | 24 LTS (24.19.0 verified on Windows) |
-| pnpm              | 12.4.1                               |
-| Turborepo         | 2.10.13                              |
-| TypeScript        | 5.9.3                                |
-| Vite              | 8.3.0                                |
-| Next.js           | 16.3.5                               |
-| React / React DOM | 19.3.0                               |
-| PostCSS           | 8.5.28                               |
-| Ajv               | 8.20.0                               |
-| ESLint            | 10.10.0                              |
-| Stylelint         | 17.15.0                              |
-| Prettier          | 3.9.6                                |
-| Vitest            | 5.0.0                                |
-| Playwright Test   | 1.63.0                               |
+## Contributing
 
-## Workspace map
-
-| Directory            | Purpose                                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------------------- |
-| `packages/core`      | CSS source, initial custom-property tokens, scoped setup demonstration, and stylesheet exports. |
-| `packages/contracts` | JSON Schema, Ajv validation, and TypeScript contract types.                                     |
-| `packages/build`     | Deterministic PostCSS assembly, token CSS generation, contract validation, and watch mode.      |
-| `apps/playground`    | Plain HTML and TypeScript Vite consumer of the public core CSS export.                          |
-| `apps/react-fixture` | Minimal React and TypeScript Vite consumer of the same CSS export.                              |
-| `apps/docs`          | Small Next.js documentation site for setup guidance and public export examples.                 |
-
-The repository intentionally does not contain Studio, MCP, the AI checker, native applications, or future services.
-
-## Where to begin
-
-- Write CSS in `packages/core/src/index.css`, `base.css`, and `setup-demo.css`.
-- Add or revise initial values in `packages/core/src/tokens.json`.
-- Add contract schemas and TypeScript validation exports in `packages/contracts/src`.
-- Keep setup demonstration content clearly separate from future production component work.
-
-The core package is React-free. Consumers must import `@tosynui/core/styles.css` through its public package export;
-the fixtures are intentionally small so package resolution and browser rendering remain easy to inspect.
+Changes to the language start in `packages/spec/src/catalog/elements.json`. Keep the catalog, the
+schemas, the tests and the reference site in agreement; CI checks formatting, lint, types, unit
+tests and end-to-end tests on Linux and Windows.

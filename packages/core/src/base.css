@@ -1,7 +1,0 @@
-[data-tosyn] {
-  color: var(--tosyn-color-ink);
-  background: var(--tosyn-color-surface);
-  font-family: var(--tosyn-font-family);
-  font-size: var(--tosyn-font-size);
-  line-height: var(--tosyn-font-line-height);
-}

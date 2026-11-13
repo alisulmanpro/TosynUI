@@ -7,19 +7,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
+    baseURL: 'http://127.0.0.1:4173',
     trace: 'on-first-retry',
     ...devices['Desktop Chrome'],
   },
-  webServer: [
-    {
-      command: 'pnpm --dir apps/playground exec vite preview --host 127.0.0.1 --port 4173',
-      url: 'http://127.0.0.1:4173',
-      reuseExistingServer: !process.env.CI,
-    },
-    {
-      command: 'pnpm --dir apps/react-fixture exec vite preview --host 127.0.0.1 --port 4174',
-      url: 'http://127.0.0.1:4174',
-      reuseExistingServer: !process.env.CI,
-    },
-  ],
+  webServer: {
+    command: 'pnpm --dir apps/playground exec vite preview --host 127.0.0.1 --port 4173',
+    url: 'http://127.0.0.1:4173',
+    reuseExistingServer: !process.env.CI,
+  },
 });

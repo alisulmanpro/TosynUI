@@ -1,7 +1,8 @@
 {
-  "name": "@tosynui/build",
+  "name": "@tosynui/spec",
   "version": "0.1.0",
   "private": true,
+  "description": "The Tosyn intent language: element catalog, document schema and validator.",
   "type": "module",
   "files": [
     "dist"
@@ -11,22 +12,20 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./catalog.json": "./dist/catalog/elements.json",
+    "./schema/catalog.json": "./dist/schema/catalog.schema.json",
+    "./schema/document.json": "./dist/schema/document.schema.json",
+    "./examples/*.json": "./dist/examples/*.json",
     "./package.json": "./package.json"
-  },
-  "bin": {
-    "tosynui-build": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage && node ../../scripts/check-exports.mjs"
   },
   "dependencies": {
-    "@tosynui/contracts": "workspace:*",
-    "chokidar": "4.0.3",
-    "postcss": "8.5.28",
-    "postcss-import": "16.1.0"
+    "ajv": "8.20.0"
   },
   "devDependencies": {
     "@types/node": "24.0.0",

@@ -1,0 +1,70 @@
+{
+  "tosyn": "0.1",
+  "root": {
+    "element": "screen",
+    "attributes": {
+      "name": "bmi-calculator",
+      "purpose": "Work out body mass index from height and weight."
+    },
+    "children": [
+      {
+        "element": "section",
+        "attributes": { "name": "inputs", "emphasis": "featured" },
+        "children": [
+          { "element": "heading", "children": [{ "text": "BMI calculator" }] },
+          {
+            "element": "text",
+            "children": [{ "text": "Enter your height and weight to see your BMI." }]
+          },
+          {
+            "element": "field",
+            "attributes": {
+              "name": "height",
+              "label": "Height",
+              "kind": "number",
+              "unit": "cm",
+              "required": true
+            }
+          },
+          {
+            "element": "field",
+            "attributes": {
+              "name": "weight",
+              "label": "Weight",
+              "kind": "number",
+              "unit": "kg",
+              "required": true
+            }
+          },
+          {
+            "element": "action",
+            "attributes": { "intent": "submit", "importance": "primary" },
+            "children": [{ "text": "Calculate BMI" }]
+          },
+          {
+            "element": "action",
+            "attributes": { "intent": "reset", "importance": "tertiary" },
+            "children": [{ "text": "Clear" }]
+          }
+        ]
+      },
+      {
+        "element": "section",
+        "attributes": { "name": "result" },
+        "children": [
+          { "element": "heading", "children": [{ "text": "Your result" }] },
+          {
+            "element": "feedback",
+            "attributes": { "tone": "info" },
+            "children": [{ "text": "Your BMI will appear here." }]
+          },
+          {
+            "element": "text",
+            "attributes": { "tone": "muted" },
+            "children": [{ "text": "BMI is a screening measure, not a diagnosis." }]
+          }
+        ]
+      }
+    ]
+  }
+}
