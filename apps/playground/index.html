@@ -6,24 +6,55 @@
     <title>Tosyn playground</title>
   </head>
   <body>
-    <main>
-      <header>
+    <header class="bar">
+      <div>
         <p class="eyebrow">Tosyn playground</p>
-        <h1>Validate an intent document</h1>
-        <p>Edit the document or paste one written by an AI model. It is checked as you type.</p>
-      </header>
-      <div class="workspace">
-        <label class="editor">
-          <span>Document (JSON)</span>
-          <textarea id="document" spellcheck="false" rows="28"></textarea>
-        </label>
-        <section aria-labelledby="results-title">
-          <h2 id="results-title">Result</h2>
-          <p id="status" role="status"></p>
-          <ol id="diagnostics"></ol>
-        </section>
+        <h1>Write intent, see the interface</h1>
       </div>
+      <div class="controls">
+        <label>
+          <span>Example</span>
+          <select id="example">
+            <option value="bmi-calculator">BMI calculator</option>
+            <option value="sign-in">Sign in</option>
+            <option value="account-settings">Account settings</option>
+            <option value="blank">Blank screen</option>
+          </select>
+        </label>
+        <label>
+          <span>Theme</span>
+          <select id="theme">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">System</option>
+          </select>
+        </label>
+        <button id="copy-guide" type="button">Copy AI guide</button>
+        <button id="download" type="button">Download HTML</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="pane" aria-labelledby="source-title">
+        <h2 id="source-title">Markup</h2>
+        <label class="visually-hidden" for="source">Tosyn markup</label>
+        <textarea id="source" spellcheck="false" autocomplete="off" wrap="off"></textarea>
+        <div class="findings">
+          <p id="status" role="status"></p>
+          <ol id="findings"></ol>
+        </div>
+      </section>
+
+      <section class="pane" aria-labelledby="preview-title">
+        <h2 id="preview-title">Preview</h2>
+        <iframe id="preview" title="Rendered screen"></iframe>
+        <details>
+          <summary>Generated HTML</summary>
+          <pre><code id="html-output"></code></pre>
+        </details>
+      </section>
     </main>
+    <p id="notice" class="notice" role="status"></p>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

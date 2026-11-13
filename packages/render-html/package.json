@@ -1,0 +1,38 @@
+{
+  "name": "@tosynui/render-html",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Renders Tosyn documents to accessible HTML and CSS.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "generate": "node ../../scripts/embed-css.mjs src/styles.css src/styles.generated.ts componentCss",
+    "build": "pnpm generate && tsc -p tsconfig.build.json && node -e \"require('node:fs').copyFileSync('src/styles.css','dist/styles.css')\"",
+    "lint": "eslint . --max-warnings 0 && stylelint \"src/**/*.css\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@tosynui/spec": "workspace:*",
+    "@tosynui/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@tosynui/parser": "workspace:*",
+    "@types/node": "24.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "eslint": "10.10.0",
+    "stylelint": "17.15.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}

@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@tosynui/rules": "workspace:*",
     "@tosynui/spec": "workspace:*",
     "next": "16.3.5",
     "react": "19.3.0",

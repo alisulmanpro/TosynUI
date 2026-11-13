@@ -1,0 +1,32 @@
+{
+  "name": "@tosynui/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tosyn design tokens in the W3C DTCG format, with CSS generation and contrast checks.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./base.tokens.json": "./dist/tokens/base.tokens.json",
+    "./dark.tokens.json": "./dist/tokens/dark.tokens.json",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "eslint": "10.10.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}
