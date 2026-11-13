@@ -58,6 +58,7 @@ export interface Catalog {
 }
 
 export type DiagnosticCode =
+  | 'syntax-error'
   | 'invalid-structure'
   | 'unsupported-version'
   | 'invalid-root'
@@ -75,6 +76,9 @@ export interface Diagnostic {
   message: string;
   /** JSON Pointer to the offending value, for example `/root/children/0/attributes/intent`. */
   path: string;
+  /** 1-based source position, when the document was parsed from markup. */
+  line?: number;
+  column?: number;
 }
 
 export interface ValidationResult {

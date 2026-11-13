@@ -17,11 +17,16 @@
     "format:check": "prettier . --check",
     "test": "turbo run test",
     "test:e2e": "pnpm build && playwright test",
-    "clean": "node scripts/clean.mjs"
+    "clean": "node scripts/clean.mjs",
+    "generate": "pnpm --filter @tosynui/render-html generate && node packages/cli/dist/bin.js guide -o docs/ai/tosyn-guide.md"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "@eslint/js": "9.39.1",
     "@playwright/test": "1.63.0",
+    "@tosynui/cli": "workspace:*",
+    "@tosynui/parser": "workspace:*",
+    "@tosynui/render-html": "workspace:*",
     "@tosynui/spec": "workspace:*",
     "@types/node": "24.0.0",
     "eslint": "10.10.0",

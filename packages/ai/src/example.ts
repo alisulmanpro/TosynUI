@@ -1,0 +1,18 @@
+/** The example screen shown to AI models. Kept identical to examples/bmi-calculator.tosyn by a test. */
+export const exampleMarkup = `<screen name="bmi-calculator" purpose="Work out body mass index from height and weight.">
+  <section name="inputs" emphasis="featured">
+    <heading>BMI calculator</heading>
+    <text>Enter your height and weight to see your BMI.</text>
+    <field name="height" label="Height" kind="number" unit="cm" required />
+    <field name="weight" label="Weight" kind="number" unit="kg" required />
+    <action intent="submit" importance="primary">Calculate BMI</action>
+    <action intent="reset" importance="tertiary">Clear</action>
+  </section>
+
+  <section name="result">
+    <heading>Your result</heading>
+    <feedback tone="info">Your BMI will appear here.</feedback>
+    <text tone="muted">BMI is a screening measure, not a diagnosis.</text>
+  </section>
+</screen>
+`;

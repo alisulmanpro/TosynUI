@@ -166,12 +166,24 @@ importers:
 
   .:
     devDependencies:
+      '@axe-core/playwright':
+        specifier: 4.14.0
+        version: 4.14.0(playwright-core@1.63.0)
       '@eslint/js':
         specifier: 9.39.1
         version: 9.39.1
       '@playwright/test':
         specifier: 1.63.0
         version: 1.63.0
+      '@tosynui/cli':
+        specifier: workspace:*
+        version: link:packages/cli
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:packages/parser
+      '@tosynui/render-html':
+        specifier: workspace:*
+        version: link:packages/render-html
       '@tosynui/spec':
         specifier: workspace:*
         version: link:packages/spec
@@ -202,6 +214,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../../packages/rules
       '@tosynui/spec':
         specifier: workspace:*
         version: link:../../packages/spec
@@ -233,6 +248,18 @@ importers:
 
   apps/playground:
     dependencies:
+      '@tosynui/ai':
+        specifier: workspace:*
+        version: link:../../packages/ai
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../../packages/parser
+      '@tosynui/render-html':
+        specifier: workspace:*
+        version: link:../../packages/render-html
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../../packages/rules
       '@tosynui/spec':
         specifier: workspace:*
         version: link:../../packages/spec
@@ -249,6 +276,149 @@ importers:
       vite:
         specifier: 8.3.0
         version: 8.3.0(@types/node@24.0.0)
+
+  packages/ai:
+    dependencies:
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../rules
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+    devDependencies:
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
+  packages/cli:
+    dependencies:
+      '@tosynui/ai':
+        specifier: workspace:*
+        version: link:../ai
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@tosynui/render-html':
+        specifier: workspace:*
+        version: link:../render-html
+      '@tosynui/rules':
+        specifier: workspace:*
+        version: link:../rules
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+    devDependencies:
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
+  packages/parser:
+    dependencies:
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+      htmlparser2:
+        specifier: 12.0.0
+        version: 12.0.0
+    devDependencies:
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
+  packages/render-html:
+    dependencies:
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+      '@tosynui/tokens':
+        specifier: workspace:*
+        version: link:../tokens
+    devDependencies:
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      stylelint:
+        specifier: 17.15.0
+        version: 17.15.0(supports-color@10.2.2)(typescript@5.9.3)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
+  packages/rules:
+    dependencies:
+      '@tosynui/spec':
+        specifier: workspace:*
+        version: link:../spec
+    devDependencies:
+      '@tosynui/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
 
   packages/spec:
     dependencies:
@@ -272,7 +442,31 @@ importers:
         specifier: 5.0.0
         version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
 
+  packages/tokens:
+    devDependencies:
+      '@types/node':
+        specifier: 24.0.0
+        version: 24.0.0
+      '@vitest/coverage-v8':
+        specifier: 5.0.0
+        version: 5.0.0(vitest@5.0.0)
+      eslint:
+        specifier: 10.10.0
+        version: 10.10.0(supports-color@10.2.2)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 5.0.0
+        version: 5.0.0(@types/node@24.0.0)(@vitest/coverage-v8@5.0.0)(vite@8.3.0(@types/node@24.0.0))
+
 packages:
+
+  '@axe-core/playwright@4.14.0':
+    resolution: {integrity: sha512-SGUhG5PIHd2eMdpgBF2PyQLOhX+qyDR2PT4cmoS4Qk2ak+jX/rrSvst9l0PGv5WTHolKpUMvVmoHpr4cZgf1RQ==}
+    engines: {node: '>=22.12.0'}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -956,6 +1150,10 @@ packages:
     resolution: {integrity: sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==}
     engines: {node: '>=8'}
 
+  axe-core@4.14.0:
+    resolution: {integrity: sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==}
+    engines: {node: '>=4'}
+
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
@@ -1045,8 +1243,28 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
+  dom-serializer@3.1.1:
+    resolution: {integrity: sha512-4MEa38/QexBob6gFNwu+EGdWvhJ1OKuNwdYY3Y3NyeWDQfnGeDYQUDfIRzWu5B5gsv03so2Uxd28YC6zrsx3Lw==}
+    engines: {node: '>=20.19.0'}
+
+  domelementtype@3.0.0:
+    resolution: {integrity: sha512-umCQid3jKbDmVjx8jGaW7uUykm4DEUeyV21hPxNMo2nV955DhUThwqyOIDtreepP31hl84X7G5U9ZfsWvIB3Pg==}
+    engines: {node: '>=20.19.0'}
+
+  domhandler@6.0.1:
+    resolution: {integrity: sha512-gYzvtM72ZtxQO0T048kd6HWSbbGCNOUwcnfQ01cqIJ4X2IYKFFHZ5mKvrQETcFXxsRObZulDaKmy//R7TPtsBg==}
+    engines: {node: '>=20.19.0'}
+
+  domutils@4.0.2:
+    resolution: {integrity: sha512-qI4JLRKnSzqFqr7hAlS5xQDusBCjKSEG4t4+7aNrIQMHBcsC2TGEhuyABJdYkgSewL57PNLYEiibY2iPKhKpaA==}
+    engines: {node: '>=20.19.0'}
+
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
+
+  entities@8.1.0:
+    resolution: {integrity: sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==}
+    engines: {node: '>=20.19.0'}
 
   env-paths@2.2.1:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
@@ -1209,6 +1427,10 @@ packages:
   html-tags@5.1.0:
     resolution: {integrity: sha512-n6l5uca7/y5joxZ3LUePhzmBFUJ+U2YWzhMa8XUTecSeSlQiZdF5XAd/Q3/WUl0VsXgUwWi8I7CNIwdI5WN1SQ==}
     engines: {node: '>=20.10'}
+
+  htmlparser2@12.0.0:
+    resolution: {integrity: sha512-Tz7u1i95/g2x2jz81+x0FBVhBhY5aRTvD3tXXdFaljuNdzDLJ8UGNRrTcj2cgQvAg3iW/h77Fz15nLW0L0CrZw==}
+    engines: {node: '>=20.19.0'}
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -1835,6 +2057,11 @@ packages:
 
 snapshots:
 
+  '@axe-core/playwright@4.14.0(playwright-core@1.63.0)':
+    dependencies:
+      axe-core: 4.14.0
+      playwright-core: 1.63.0
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -2373,6 +2600,8 @@ snapshots:
 
   astral-regex@2.0.0: {}
 
+  axe-core@4.14.0: {}
+
   balanced-match@4.0.4: {}
 
   baseline-browser-mapping@2.11.23: {}
@@ -2445,7 +2674,27 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
+  dom-serializer@3.1.1:
+    dependencies:
+      domelementtype: 3.0.0
+      domhandler: 6.0.1
+      entities: 8.1.0
+
+  domelementtype@3.0.0: {}
+
+  domhandler@6.0.1:
+    dependencies:
+      domelementtype: 3.0.0
+
+  domutils@4.0.2:
+    dependencies:
+      dom-serializer: 3.1.1
+      domelementtype: 3.0.0
+      domhandler: 6.0.1
+
   emoji-regex@8.0.0: {}
+
+  entities@8.1.0: {}
 
   env-paths@2.2.1: {}
 
@@ -2620,6 +2869,13 @@ snapshots:
   hookified@2.2.0: {}
 
   html-tags@5.1.0: {}
+
+  htmlparser2@12.0.0:
+    dependencies:
+      domelementtype: 3.0.0
+      domhandler: 6.0.1
+      domutils: 4.0.2
+      entities: 8.1.0
 
   ignore@5.3.2: {}
 
