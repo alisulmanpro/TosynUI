@@ -44,6 +44,7 @@ markup ──parser──▶ IR (JSON) ──spec validator──▶ design rule
 | `@tosynui/render-html` | Accessible HTML and zero-specificity CSS                                      |
 | `@tosynui/ai`          | Generated guide that teaches AI models to write Tosyn                         |
 | `@tosynui/cli`         | `tosyn check`, `render`, `guide` and `css`                                    |
+| `@tosynui/mcp`         | MCP server so AI tools can check and render Tosyn (in progress)               |
 
 Every finding names the problem, where it is and how to fix it, so an AI model can correct its own
 output in one round.

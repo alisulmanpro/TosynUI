@@ -1,0 +1,44 @@
+{
+  "name": "@tosynui/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP server that lets AI tools check and render Tosyn markup.",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "tosyn-mcp": "dist/bin.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/bin.js",
+    "inspect": "pnpm build && pnpm dlx @modelcontextprotocol/inspector@2.16.0 node dist/bin.js",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "@tosynui/ai": "workspace:*",
+    "@tosynui/parser": "workspace:*",
+    "@tosynui/render-html": "workspace:*",
+    "@tosynui/rules": "workspace:*",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0",
+    "@types/node": "24.0.0",
+    "@vitest/coverage-v8": "5.0.0",
+    "eslint": "10.10.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}
