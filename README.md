@@ -51,7 +51,7 @@ output in one round.
 
 ## Quick start
 
-Use Node.js 24 LTS and pnpm 12.4.1.
+Use Node.js 24 LTS and pnpm 12 (12.18.0 or newer).
 
 ```text
 pnpm install --frozen-lockfile
