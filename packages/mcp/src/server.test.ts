@@ -27,6 +27,14 @@ describe('Tosyn MCP server', () => {
     }
   });
 
+  it('advertises tools, resources and prompts', () => {
+    expect(client.getServerCapabilities()).toMatchObject({
+      tools: expect.any(Object),
+      resources: expect.any(Object),
+      prompts: expect.any(Object),
+    });
+  });
+
   it('rejects invalid input before a tool runs', async () => {
     const result = await client.callTool({ name: 'check_markup', arguments: { markup: 5 } });
     expect(result.isError).toBe(true);

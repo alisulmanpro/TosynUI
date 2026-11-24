@@ -18,7 +18,8 @@
     "tosyn-mcp": "dist/bin.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "generate": "node ../../scripts/embed-examples.mjs ../../examples src/examples.generated.ts",
+    "build": "pnpm generate && tsc -p tsconfig.build.json",
     "start": "node dist/bin.js",
     "inspect": "pnpm build && pnpm dlx @modelcontextprotocol/inspector@2.16.0 node dist/bin.js",
     "lint": "eslint . --max-warnings 0",

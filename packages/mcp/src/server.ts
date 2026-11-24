@@ -1,6 +1,9 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import { registerCheckMarkup } from './tools/check-markup.js';
 import { registerRenderMarkup } from './tools/render-markup.js';
+import { registerDesignScreenPrompt } from './prompts/design-screen.js';
+import { registerExampleResources } from './resources/examples.js';
+import { registerGuideResource } from './resources/guide.js';
 
 export const SERVER_NAME = 'tosyn';
 export const SERVER_VERSION = '0.1.0';
@@ -17,9 +20,10 @@ export function createServer(): McpServer {
   registerCheckMarkup(server);
   registerRenderMarkup(server);
 
-  // Level 3: resources and prompts.
-  //   - resource tosyn://guide: the AI guide from @tosynui/ai
-  //   - prompt design_screen:   asks the model to design a screen in Tosyn
+  registerGuideResource(server);
+  registerExampleResources(server);
+
+  registerDesignScreenPrompt(server);
 
   return server;
 }
