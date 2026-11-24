@@ -24,7 +24,7 @@ export function checkMarkup(markup: string): { valid: boolean; findings: Finding
 }
 
 /** One finding as a line a model can act on: "3:5 error unknown-attribute: ..." */
-function describe(finding: Finding): string {
+export function describeFinding(finding: Finding): string {
   const where = finding.line ? `${finding.line}:${finding.column ?? 1}` : '-';
   return `${where} ${finding.severity} ${finding.code}: ${finding.message}`;
 }
@@ -65,7 +65,7 @@ export function registerCheckMarkup(server: McpServer): void {
 
       return {
         // For the model to read.
-        content: [{ type: 'text', text: [summary, ...findings.map(describe)].join('\n') }],
+        content: [{ type: 'text', text: [summary, ...findings.map(describeFinding)].join('\n') }],
         // For programs to use: must match outputSchema.
         structuredContent: {
           valid,

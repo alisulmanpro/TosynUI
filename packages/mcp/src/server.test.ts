@@ -1,19 +1,7 @@
-import { Client } from '@modelcontextprotocol/client';
-import { InMemoryTransport } from '@modelcontextprotocol/server';
+import type { Client } from '@modelcontextprotocol/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { SERVER_NAME, SERVER_VERSION, createServer } from './index.js';
-
-/**
- * Connects a real MCP client to the server in memory, so tests talk to the server exactly as
- * Claude or Cursor would, without starting a process.
- */
-async function connect(): Promise<Client> {
-  const [serverSide, clientSide] = InMemoryTransport.createLinkedPair();
-  await createServer().connect(serverSide);
-  const client = new Client({ name: 'test-client', version: '1.0.0' });
-  await client.connect(clientSide);
-  return client;
-}
+import { SERVER_NAME, SERVER_VERSION } from './index.js';
+import { connect } from './test/connect.js';
 
 describe('Tosyn MCP server', () => {
   let client: Client;
@@ -30,21 +18,17 @@ describe('Tosyn MCP server', () => {
     expect(client.getServerVersion()).toMatchObject({ name: SERVER_NAME, version: SERVER_VERSION });
   });
 
-  it('lists its tools with descriptions', async () => {
+  it('lists its tools with descriptions and output schemas', async () => {
     const { tools } = await client.listTools();
-    expect(tools.map((tool) => tool.name)).toContain('say_hello');
-    for (const tool of tools) expect(tool.description).toBeTruthy();
+    expect(tools.map((tool) => tool.name).sort()).toEqual(['check_markup', 'render_markup']);
+    for (const tool of tools) {
+      expect(tool.description).toBeTruthy();
+      expect(tool.outputSchema).toBeDefined();
+    }
   });
 
-  it('runs say_hello', async () => {
-    const result = await client.callTool({ name: 'say_hello', arguments: { name: 'Ali' } });
-    expect(result.content).toEqual([{ type: 'text', text: 'Assalam-o-Alaikum, Ali!' }]);
-  });
-
-  it('rejects invalid input before the tool runs', async () => {
-    const result = await client.callTool({ name: 'say_hello', arguments: { name: 5 } });
+  it('rejects invalid input before a tool runs', async () => {
+    const result = await client.callTool({ name: 'check_markup', arguments: { markup: 5 } });
     expect(result.isError).toBe(true);
   });
-
-  // Level 2 (yours): add tests for check_markup and render_markup here.
 });
