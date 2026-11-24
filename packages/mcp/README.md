@@ -3,8 +3,18 @@
 An [MCP](https://modelcontextprotocol.io) server that lets AI tools such as Claude Code, Claude
 Desktop and Cursor check and render Tosyn markup themselves.
 
-> **Status: Level 2 complete.** `check_markup` and `render_markup` work over stdio. Resources and
-> prompts come next; see [Build plan](#build-plan).
+> **Status: complete for v0.1.** Two tools, the guide and examples as resources, and a prompt.
+> Publishing to npm is the last step; see [Build plan](#build-plan).
+
+## What it offers
+
+| Kind     | Name                      | What it does                                                       |
+| -------- | ------------------------- | ------------------------------------------------------------------ |
+| Tool     | `check_markup`            | Checks markup; returns every error and warning with line and fix.  |
+| Tool     | `render_markup`           | Renders valid markup as a full HTML page in light, dark or system. |
+| Resource | `tosyn://guide`           | The AI writing guide: every element, attribute and design rule.    |
+| Resource | `tosyn://examples/{name}` | Example screens: `bmi-calculator`, `sign-in`, `account-settings`.  |
+| Prompt   | `design_screen`           | Designs a screen from a description, then checks and fixes it.     |
 
 Built on the MCP TypeScript SDK v2 (`@modelcontextprotocol/server`).
 
@@ -39,7 +49,8 @@ From the repository root, after building:
 claude mcp add tosyn -- node "$(pwd)/packages/mcp/dist/bin.js"
 ```
 
-Then ask Claude Code to design a screen in Tosyn and check it with `check_markup`. Remove it with `claude mcp remove tosyn`.
+Then, in Claude Code, run the `design_screen` prompt (type `/` to find it) or ask: _"Read the
+Tosyn guide and design a contact page, checking it with check_markup."_ Remove it with `claude mcp remove tosyn`.
 
 ### Rules for stdio servers
 
@@ -71,7 +82,10 @@ Then ask Claude Code to design a screen in Tosyn and check it with `check_markup
 
 ### Level 3: complete server
 
-- [ ] Resource `tosyn://guide`: the AI guide from `renderGuide()`.
-- [ ] Resource template `tosyn://examples/{name}`: the example screens.
-- [ ] Prompt `design_screen`: takes a description and asks for one valid Tosyn screen.
+- [x] Resource `tosyn://guide`: the AI guide from `renderGuide()`.
+- [x] Resource template `tosyn://examples/{name}`: the example screens.
+- [x] Prompt `design_screen`: takes a description and asks for one valid Tosyn screen.
 - [ ] Publish the package with a `tosyn-mcp` binary, so anyone can run it with `npx`.
+
+`src/examples.generated.ts` embeds `examples/*.tosyn` so the published package needs no files from
+the repository. `pnpm build` regenerates it, and a test fails if it is out of date.
