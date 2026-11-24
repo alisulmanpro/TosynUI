@@ -110,8 +110,21 @@ pnpm clean          Remove generated output only
 | `docs/`      | Architecture decisions, AI guide and testing procedure.  |
 | `tests/e2e`  | Playwright and axe-core tests.                           |
 
+## Install
+
+```text
+npx @tosynui/cli check my-screen.tosyn          # check markup
+claude mcp add tosyn -- npx -y @tosynui/mcp      # give Claude Code the Tosyn tools
+```
+
+Packages are published under the `@tosynui` scope on npm; see [docs/releasing.md](docs/releasing.md).
+
 ## Contributing
 
 Language changes start in `packages/spec/src/catalog/elements.json`; design rules live in
 `packages/rules/src/rules.ts`. After changing either, run `pnpm generate` so the AI guide stays in
 step, and add or update an example in `examples/`.
+
+## License
+
+[MIT](LICENSE) © 2026 Ali Sulman

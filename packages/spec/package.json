@@ -1,8 +1,26 @@
 {
   "name": "@tosynui/spec",
   "version": "0.1.0",
-  "private": true,
   "description": "The Tosyn intent language: element catalog, document schema and validator.",
+  "keywords": [
+    "tosyn",
+    "intent-language",
+    "ui",
+    "json-schema",
+    "validator",
+    "ai"
+  ],
+  "license": "MIT",
+  "author": "Ali Sulman",
+  "homepage": "https://github.com/alisulmanpro/TosynUI/tree/main/packages/spec#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisulmanpro/TosynUI.git",
+    "directory": "packages/spec"
+  },
+  "bugs": {
+    "url": "https://github.com/alisulmanpro/TosynUI/issues"
+  },
   "type": "module",
   "files": [
     "dist"
@@ -33,5 +51,11 @@
     "eslint": "10.10.0",
     "typescript": "5.9.3",
     "vitest": "5.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
