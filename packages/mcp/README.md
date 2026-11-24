@@ -43,7 +43,13 @@ choose **Execute Tool**.
 
 ### Connect to Claude Code
 
-From the repository root, after building:
+From npm:
+
+```text
+claude mcp add tosyn -- npx -y @tosynui/mcp
+```
+
+From this repository root, after building:
 
 ```text
 claude mcp add tosyn -- node "$(pwd)/packages/mcp/dist/bin.js"
@@ -85,7 +91,7 @@ Tosyn guide and design a contact page, checking it with check_markup."_ Remove i
 - [x] Resource `tosyn://guide`: the AI guide from `renderGuide()`.
 - [x] Resource template `tosyn://examples/{name}`: the example screens.
 - [x] Prompt `design_screen`: takes a description and asks for one valid Tosyn screen.
-- [ ] Publish the package with a `tosyn-mcp` binary, so anyone can run it with `npx`.
+- [x] Prepare the package for npm with a `tosyn-mcp` binary ([releasing](../../docs/releasing.md)).
 
 `src/examples.generated.ts` embeds `examples/*.tosyn` so the published package needs no files from
 the repository. `pnpm build` regenerates it, and a test fails if it is out of date.

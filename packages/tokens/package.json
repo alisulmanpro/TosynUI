@@ -1,8 +1,27 @@
 {
   "name": "@tosynui/tokens",
   "version": "0.1.0",
-  "private": true,
   "description": "Tosyn design tokens in the W3C DTCG format, with CSS generation and contrast checks.",
+  "keywords": [
+    "tosyn",
+    "design-tokens",
+    "dtcg",
+    "theme",
+    "dark-mode",
+    "wcag",
+    "css-variables"
+  ],
+  "license": "MIT",
+  "author": "Ali Sulman",
+  "homepage": "https://github.com/alisulmanpro/TosynUI/tree/main/packages/tokens#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisulmanpro/TosynUI.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/alisulmanpro/TosynUI/issues"
+  },
   "type": "module",
   "files": [
     "dist"
@@ -28,5 +47,11 @@
     "eslint": "10.10.0",
     "typescript": "5.9.3",
     "vitest": "5.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
