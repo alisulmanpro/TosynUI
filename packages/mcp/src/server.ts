@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import { z } from 'zod';
+import { registerCheckMarkup } from './tools/check-markup.js';
 
 export const SERVER_NAME = 'tosyn';
 export const SERVER_VERSION = '0.1.0';
@@ -27,8 +28,7 @@ export function createServer(): McpServer {
   );
 
   // Level 2 (yours): register the real tools. See README.md for the full task list.
-  //   - check_markup:  parse + checkDocument, return findings with line and column
-  //   - render_markup: return the rendered HTML page for valid markup
+  registerCheckMarkup(server)
 
   // Level 3 (yours): resources and prompts.
   //   - resource tosyn://guide: the AI guide from @tosynui/ai
