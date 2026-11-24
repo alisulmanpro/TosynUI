@@ -3,18 +3,19 @@
 An [MCP](https://modelcontextprotocol.io) server that lets AI tools such as Claude Code, Claude
 Desktop and Cursor check and render Tosyn markup themselves.
 
-> **Status: scaffold.** The server runs and has one starter tool, `say_hello`. The Tosyn tools are
-> being built step by step; see [Build plan](#build-plan).
+> **Status: Level 2 complete.** `check_markup` and `render_markup` work over stdio. Resources and
+> prompts come next; see [Build plan](#build-plan).
 
 Built on the MCP TypeScript SDK v2 (`@modelcontextprotocol/server`).
 
 ## Files
 
-| File                 | Purpose                                                                     |
-| -------------------- | --------------------------------------------------------------------------- |
-| `src/server.ts`      | `createServer()`: registers every tool, resource and prompt.                |
-| `src/bin.ts`         | Starts the server on stdio. This is what an AI client runs.                 |
-| `src/server.test.ts` | Connects a real MCP client in memory and calls the server like an AI would. |
+| File                  | Purpose                                                          |
+| --------------------- | ---------------------------------------------------------------- |
+| `src/server.ts`       | `createServer()`: registers every tool, resource and prompt.     |
+| `src/bin.ts`          | Starts the server on stdio. This is what an AI client runs.      |
+| `src/tools/*.ts`      | One file per tool, each with its own test.                       |
+| `src/test/connect.ts` | Connects a real MCP client in memory, as Claude or Cursor would. |
 
 Keeping `createServer()` separate from the transport means the tests exercise the real server
 without starting a process.
@@ -27,7 +28,8 @@ pnpm --filter @tosynui/mcp inspect   # opens the MCP Inspector in the browser
 pnpm --filter @tosynui/mcp test
 ```
 
-In the Inspector, choose **Connect**, then **Tools → say_hello → Run**.
+In the Inspector, turn on the server's toggle, open **Tools**, pick a tool, fill in `markup` and
+choose **Execute Tool**.
 
 ### Connect to Claude Code
 
@@ -37,7 +39,7 @@ From the repository root, after building:
 claude mcp add tosyn -- node "$(pwd)/packages/mcp/dist/bin.js"
 ```
 
-Then ask Claude Code to use the `say_hello` tool. Remove it with `claude mcp remove tosyn`.
+Then ask Claude Code to design a screen in Tosyn and check it with `check_markup`. Remove it with `claude mcp remove tosyn`.
 
 ### Rules for stdio servers
 
@@ -54,18 +56,18 @@ Then ask Claude Code to use the `say_hello` tool. Remove it with `claude mcp rem
 
 - [x] Server with one tool, connected over stdio
 - [x] In-memory test with a real MCP client
-- [ ] Run `say_hello` in the Inspector and in Claude Code
+- [x] Run `say_hello` in the Inspector and in Claude Code
 - [ ] Practice: add an `add_numbers` tool with a test, then remove it
 
 ### Level 2: the real tools
 
-- [ ] `check_markup`: takes `markup`, runs `parseMarkup` and `checkDocument`, attaches line and
+- [x] `check_markup`: takes `markup`, runs `parseMarkup` and `checkDocument`, attaches line and
       column, and returns every finding. Valid markup returns a short success message.
-- [ ] `render_markup`: takes `markup` and an optional `theme`; returns the HTML page from
+- [x] `render_markup`: takes `markup` and an optional `theme`; returns the HTML page from
       `renderPage`, or the findings when the markup has errors.
-- [ ] Return `structuredContent` with an `outputSchema`, so clients get data as well as text.
-- [ ] Tests for valid, warning-only and invalid markup for both tools.
-- [ ] Remove `say_hello`.
+- [x] Return `structuredContent` with an `outputSchema`, so clients get data as well as text.
+- [x] Tests for valid, warning-only and invalid markup for both tools.
+- [x] Remove `say_hello`.
 
 ### Level 3: complete server
 
