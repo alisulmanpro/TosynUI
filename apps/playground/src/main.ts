@@ -8,6 +8,7 @@ import type { TosynDocument } from '@tosynui/spec';
 import accountSettings from '../../../examples/account-settings.tosyn?raw';
 import bmiCalculator from '../../../examples/bmi-calculator.tosyn?raw';
 import signIn from '../../../examples/sign-in.tosyn?raw';
+import { docsUrl } from './site';
 import './app.css';
 
 const EXAMPLES: Record<string, string> = {
@@ -31,6 +32,8 @@ const list = requireElement<HTMLOListElement>('#findings');
 const preview = requireElement<HTMLIFrameElement>('#preview');
 const htmlOutput = requireElement<HTMLElement>('#html-output');
 const notice = requireElement<HTMLElement>('#notice');
+
+requireElement<HTMLAnchorElement>('#docs-link').href = docsUrl;
 
 let current: TosynDocument | undefined;
 

@@ -73,6 +73,13 @@ h2 {
   font-weight: 600;
 }
 
+.controls a {
+  align-self: center;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 select,
 button {
   min-height: 2.25rem;
@@ -96,6 +103,7 @@ button {
   background: var(--accent);
 }
 
+a:focus-visible,
 select:focus-visible,
 button:focus-visible,
 textarea:focus-visible {

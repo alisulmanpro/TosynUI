@@ -1,6 +1,7 @@
 import { rules } from '@tosynui/rules';
 import { catalog } from '@tosynui/spec';
 import type { AttributeDefinition } from '@tosynui/spec';
+import { playgroundUrl } from './site';
 
 /** Renders `backtick` spans from catalog text as inline code. */
 function InlineText({ children }: { children: string }) {
@@ -29,6 +30,9 @@ export default function Page() {
         <p>
           This reference is generated from <code>@tosynui/spec</code>, the same catalog the
           validator uses. A document starts with <code>&lt;{catalog.root}&gt;</code>.
+        </p>
+        <p>
+          <a href={playgroundUrl}>Open the playground</a> to write Tosyn markup and see the result.
         </p>
       </header>
 
