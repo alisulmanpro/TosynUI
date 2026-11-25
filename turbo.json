@@ -15,6 +15,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["VERCEL_PROJECT_PRODUCTION_URL", "NEXT_PUBLIC_PLAYGROUND_URL", "VITE_DOCS_URL"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {
