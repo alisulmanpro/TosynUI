@@ -7,7 +7,7 @@ request gets a private preview.
 | Site       | Vercel project | Address                   | Root Directory    | Preset  |
 | ---------- | -------------- | ------------------------- | ----------------- | ------- |
 | Docs       | `tosynui`      | `tosynui.vercel.app`      | `apps/docs`       | Next.js |
-| Playground | `tosynui-play` | `tosynui-play.vercel.app` | `apps/playground` | Vite    |
+| Playground | `play.tosynui` | `play-tosynui.vercel.app` | `apps/playground` | Vite    |
 
 Project names are first come, first served. If Vercel gives a different address, set it in the
 environment variables below and tell the maintainers so the `homepage` fields can be updated.
@@ -18,7 +18,7 @@ environment variables below and tell the maintainers so the `homepage` fields ca
    `alisulmanpro/TosynUI`.
 2. Name it `tosynui`, set **Root Directory** to `apps/docs`, choose the Next.js preset, add the
    environment variable `ENABLE_EXPERIMENTAL_COREPACK=1`, and deploy.
-3. Import the same repository a second time. Name it `tosynui-play`, set **Root Directory** to
+3. Import the same repository a second time. Name it `play.tosynui`, set **Root Directory** to
    `apps/playground`, choose the Vite preset, add the same environment variable, and deploy.
 4. In each project, open **Settings**, **Build and Deployment**, **Root Directory** and turn on
    **Skip deployment**. Then open **Deployment Protection** and check that it is **Standard

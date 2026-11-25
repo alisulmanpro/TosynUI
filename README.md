@@ -3,6 +3,9 @@
 Tosyn is an intent language for user interfaces, designed to be written by AI models and read by
 people.
 
+Try it live: [playground](https://play-tosynui.vercel.app) and
+[reference](https://tosynui.vercel.app).
+
 A Tosyn document describes what each part of a screen does and how important it is. It never
 describes how it looks. Design rules and renderers turn the same document into a consistent,
 accessible result, so visual decisions live in one place instead of being re-made, and drifting, on

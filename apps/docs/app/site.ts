@@ -5,7 +5,7 @@
  * the environment variables in Vercel; no code change is needed.
  */
 const DEFAULT_DOCS_URL = 'https://tosynui.vercel.app';
-const DEFAULT_PLAYGROUND_URL = 'https://tosynui-play.vercel.app';
+const DEFAULT_PLAYGROUND_URL = 'https://play-tosynui.vercel.app';
 
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 
