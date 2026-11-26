@@ -40,9 +40,10 @@ export function stylesheet(
   });
   let brand = '';
   if (options.brand) {
-    const chosen = (options.brands ?? builtInBrands)[options.brand];
+    const available = options.brands ?? builtInBrands;
+    const chosen = Object.hasOwn(available, options.brand) ? available[options.brand] : undefined;
     if (!chosen) {
-      const known = Object.keys(options.brands ?? builtInBrands).join(', ');
+      const known = Object.keys(available).join(', ');
       throw new TokenError(`Unknown brand "${options.brand}". Use one of: ${known}.`);
     }
     brand = `${brandCss(options.brand, chosen)}\n`;

@@ -225,6 +225,9 @@ describe('brand themes', () => {
     };
     expect(renderPage(document, { brand: 'plum', brands })).toContain('#661a4d');
     expect(() => renderPage(document, { brand: 'gold' })).toThrow(/Use one of: ocean, forest/);
+    expect(() => renderPage(document, { brand: 'constructor' })).toThrow(
+      /Use one of: ocean, forest/,
+    );
   });
 });
 
