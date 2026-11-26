@@ -1,0 +1,71 @@
+{
+  "name": "@tosynui/render-react-native",
+  "version": "0.1.0",
+  "description": "Renders Tosyn intent documents as React Native screens, with themes from @tosynui/tokens.",
+  "keywords": [
+    "tosyn",
+    "react-native",
+    "expo",
+    "intent-language",
+    "renderer",
+    "accessibility"
+  ],
+  "license": "MIT",
+  "author": "Ali Sulman",
+  "homepage": "https://tosynui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alisulmanpro/TosynUI.git",
+    "directory": "packages/render-react-native"
+  },
+  "bugs": {
+    "url": "https://github.com/alisulmanpro/TosynUI/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@tosynui/spec": "workspace:*",
+    "@tosynui/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-native": ">=0.76.0"
+  },
+  "devDependencies": {
+    "@tosynui/parser": "workspace:*",
+    "@tosynui/rules": "workspace:*",
+    "@types/node": "24.0.0",
+    "@types/react": "19.3.3",
+    "@types/react-test-renderer": "19.3.1",
+    "@vitest/coverage-v8": "5.0.0",
+    "eslint": "10.10.0",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-test-renderer": "19.3.0",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

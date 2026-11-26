@@ -1,0 +1,28 @@
+{
+  "name": "@tosynui/expo-demo",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "generate": "node ../../scripts/embed-examples.mjs ../../examples src/examples.generated.ts",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tosynui/parser": "workspace:*",
+    "@tosynui/render-react-native": "workspace:*",
+    "@tosynui/spec": "workspace:*",
+    "expo": "58.1.0",
+    "expo-status-bar": "58.0.5",
+    "react": "19.3.0",
+    "react-native": "0.88.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.3",
+    "eslint": "10.10.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -38,16 +38,17 @@ markup ──parser──▶ IR (JSON) ──spec validator──▶ design rule
                                                          design tokens (DTCG)
 ```
 
-| Package                | What it does                                                                  |
-| ---------------------- | ----------------------------------------------------------------------------- |
-| `@tosynui/spec`        | Element catalog, JSON Schemas and validator: "is this valid Tosyn?"           |
-| `@tosynui/parser`      | Markup → JSON intermediate representation, with line and column positions     |
-| `@tosynui/rules`       | Eleven design rules and `checkDocument`: "is this good design?"               |
-| `@tosynui/tokens`      | Default theme in the W3C DTCG format, light and dark, WCAG AA contrast tested |
-| `@tosynui/render-html` | Accessible HTML and zero-specificity CSS                                      |
-| `@tosynui/ai`          | Generated guide that teaches AI models to write Tosyn                         |
-| `@tosynui/cli`         | `tosyn check`, `render`, `guide` and `css`                                    |
-| `@tosynui/mcp`         | MCP server so AI tools can check and render Tosyn (in progress)               |
+| Package                        | What it does                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| `@tosynui/spec`                | Element catalog, JSON Schemas and validator: "is this valid Tosyn?"              |
+| `@tosynui/parser`              | Markup → JSON intermediate representation, with line and column positions        |
+| `@tosynui/rules`               | Thirteen design rules and `checkDocument`: "is this good design?"                |
+| `@tosynui/tokens`              | Default theme in the W3C DTCG format, light and dark, WCAG AA contrast tested    |
+| `@tosynui/render-html`         | Accessible HTML and zero-specificity CSS                                         |
+| `@tosynui/render-react-native` | React Native screens from the same tokens, with an Expo demo in `apps/expo-demo` |
+| `@tosynui/ai`                  | Generated guide that teaches AI models to write Tosyn                            |
+| `@tosynui/cli`                 | `tosyn check`, `render`, `guide` and `css`                                       |
+| `@tosynui/mcp`                 | MCP server so AI tools can check and render Tosyn (in progress)                  |
 
 Every finding names the problem, where it is and how to fix it, so an AI model can correct its own
 output in one round.
@@ -66,6 +67,8 @@ pnpm dev
   generated HTML; switch examples and themes; copy the AI guide.
 - **Reference** at http://localhost:3000: every element, attribute and rule, generated from the
   catalog.
+- **Expo demo** (not started by `pnpm dev`): `pnpm --filter @tosynui/expo-demo start`, then open it
+  in Expo Go or an emulator. It shows the same screens with the React Native renderer.
 
 From the command line:
 
