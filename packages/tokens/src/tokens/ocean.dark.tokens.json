@@ -1,0 +1,27 @@
+{
+  "$description": "Ocean brand theme: accent colours for dark mode.",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.3608, 0.7843, 0.9412],
+        "hex": "#5cc8f0"
+      }
+    },
+    "accent-ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0157, 0.1255, 0.1804],
+        "hex": "#04202e"
+      }
+    },
+    "accent-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0549, 0.1843, 0.2392],
+        "hex": "#0e2f3d"
+      }
+    }
+  }
+}

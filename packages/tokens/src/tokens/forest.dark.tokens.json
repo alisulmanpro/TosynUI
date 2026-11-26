@@ -1,0 +1,27 @@
+{
+  "$description": "Forest brand theme: accent colours for dark mode.",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.4353, 0.8353, 0.5608],
+        "hex": "#6fd58f"
+      }
+    },
+    "accent-ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0235, 0.1294, 0.0588],
+        "hex": "#06210f"
+      }
+    },
+    "accent-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0706, 0.1961, 0.1216],
+        "hex": "#12321f"
+      }
+    }
+  }
+}

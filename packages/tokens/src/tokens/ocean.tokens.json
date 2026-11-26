@@ -1,0 +1,27 @@
+{
+  "$description": "Ocean brand theme: accent colours for light mode. Everything else comes from the default theme.",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.0, 0.4, 0.5333],
+        "hex": "#006688"
+      }
+    },
+    "accent-ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 1.0, 1.0],
+        "hex": "#ffffff"
+      }
+    },
+    "accent-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.8784, 0.9451, 0.9686],
+        "hex": "#e0f1f7"
+      }
+    }
+  }
+}
