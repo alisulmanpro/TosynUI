@@ -128,10 +128,7 @@ function loadExample(name: string): void {
 
 example.addEventListener('change', () => loadExample(example.value));
 theme.addEventListener('change', update);
-source.addEventListener('input', () => {
-  clearShareHash();
-  update();
-});
+source.addEventListener('input', update);
 
 requireElement<HTMLButtonElement>('#copy-guide').addEventListener('click', async () => {
   try {
@@ -169,6 +166,7 @@ requireElement<HTMLButtonElement>('#share').addEventListener('click', async () =
   }
 });
 
+source.addEventListener('input', clearShareHash);
 window.addEventListener('hashchange', () => void loadShared());
 
 requireElement<HTMLButtonElement>('#download').addEventListener('click', () => {
