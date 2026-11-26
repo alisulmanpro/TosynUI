@@ -87,3 +87,16 @@ code {
 .guidance-inline {
   color: #44516b;
 }
+
+pre {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  border-radius: 0.375rem;
+  background: #dfe5f0;
+}
+
+pre code {
+  padding: 0;
+  background: none;
+}
