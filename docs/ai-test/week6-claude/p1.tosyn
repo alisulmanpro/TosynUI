@@ -1,0 +1,10 @@
+<screen name="staff-sign-in" purpose="Let pharmacy staff sign in to the staff portal.">
+  <section name="sign-in" emphasis="featured">
+    <heading>Pharmacy staff sign in</heading>
+    <text>Use your staff email and password to open the portal.</text>
+    <field name="email" label="Staff email" kind="email" required />
+    <field name="password" label="Password" kind="password" required />
+    <action intent="submit" importance="primary">Sign in</action>
+    <action intent="navigate" importance="tertiary" target="/forgot-password">Forgot password?</action>
+  </section>
+</screen>

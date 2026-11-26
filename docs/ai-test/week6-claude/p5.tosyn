@@ -1,0 +1,15 @@
+<screen name="account" purpose="Let people change their password or delete their account.">
+  <section name="change-password" emphasis="featured">
+    <heading>Change password</heading>
+    <field name="current-password" label="Current password" kind="password" required />
+    <field name="new-password" label="New password" kind="password" hint="Use at least 8 characters." required />
+    <action intent="submit" importance="primary">Update password</action>
+    <feedback tone="success" when="after-submit">Your password was changed.</feedback>
+  </section>
+
+  <section name="delete-account">
+    <heading>Delete account</heading>
+    <text tone="muted">This removes your account and all its data. It cannot be undone.</text>
+    <action intent="delete" importance="secondary">Delete my account</action>
+  </section>
+</screen>

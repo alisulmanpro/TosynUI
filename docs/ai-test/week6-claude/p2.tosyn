@@ -1,0 +1,17 @@
+<screen name="wire-size-calculator" purpose="Find the recommended wire size for a solar inverter connection.">
+  <section name="inputs" emphasis="featured">
+    <heading>Solar inverter wire size calculator</heading>
+    <text>Enter your system details to get the cable size you need.</text>
+    <field name="power" label="Inverter power" kind="number" unit="W" required />
+    <field name="voltage" label="System voltage" kind="number" unit="V" required />
+    <field name="length" label="Cable length" kind="number" unit="m" required />
+    <action intent="submit" importance="primary">Calculate wire size</action>
+    <action intent="reset" importance="tertiary">Clear</action>
+  </section>
+
+  <section name="result">
+    <heading>Recommended wire size</heading>
+    <result name="wire-size" label="Wire size" unit="mm²" />
+    <text tone="muted">Check the result with a qualified electrician before installing.</text>
+  </section>
+</screen>

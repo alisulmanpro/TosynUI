@@ -1,0 +1,11 @@
+<screen name="contact" purpose="Let visitors send a message to the team.">
+  <section name="message-form" emphasis="featured">
+    <heading>Contact us</heading>
+    <text>Send us a message and we will reply by email.</text>
+    <field name="name" label="Your name" required />
+    <field name="email" label="Email" kind="email" required />
+    <field name="message" label="Message" kind="multiline" required />
+    <action intent="submit" importance="primary">Send message</action>
+    <feedback tone="success" when="after-submit">Thank you. Your message has been sent.</feedback>
+  </section>
+</screen>

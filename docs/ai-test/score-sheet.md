@@ -55,3 +55,25 @@ No `unknown-element` or `unknown-attribute` findings appeared. The two gaps abov
 | ----------------------------- | ---------------------- | ----------------------------------------------------------- |
 | Lines in the answer, prompt 1 | About 15 (both models) | 254 (Gemini, with JavaScript); ChatGPT's length not visible |
 | Look across models            | Same style in both     | Different style in each                                     |
+
+## Week 6 re-run (Tosyn 0.2 guide)
+
+Same five prompts as [kit.md](kit.md), with the 0.2 guide (`docs/ai/tosyn-guide.md`), checked with
+`tosyn check`. The answers are saved in [week6-claude/](week6-claude/).
+
+**Limits of this run.** Only Claude was run, and by Claude itself inside the project session, so it
+had seen the repository: it is **not an independent test**. Gemini and ChatGPT were not re-run
+(they need Ali). Round 1 only; no repair round was needed. "Looks right" is from rendered
+screenshots, only for the two screens that had gaps in Week 1.
+
+| Prompt | Model  | Valid first time | Errors | Warnings | Looks right (1-5) | Week 1 gap closed                                                 |
+| ------ | ------ | ---------------- | ------ | -------- | ----------------- | ----------------------------------------------------------------- |
+| 1      | Claude | Yes              | 0      | 0        | Not scored        | n/a                                                               |
+| 2      | Claude | Yes              | 0      | 0        | 4                 | Yes: uses `<result>`, so the answer is not a placeholder sentence |
+| 3      | Claude | Yes              | 0      | 0        | Not scored        | n/a                                                               |
+| 4      | Claude | Yes              | 0      | 0        | 4                 | Yes: success message has `when="after-submit"` and renders hidden |
+| 5      | Claude | Yes              | 0      | 0        | Not scored        | n/a                                                               |
+
+Claude: 5 of 5 valid first time, 0 warnings. Week 1 gave 5 of 5 valid for Gemini and ChatGPT, so
+validity did not change; what changed is that both Week 1 gaps (a calculated result, a message
+only after submit) can now be written in valid Tosyn.
