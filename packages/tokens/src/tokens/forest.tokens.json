@@ -1,0 +1,27 @@
+{
+  "$description": "Forest brand theme: accent colours for light mode. Everything else comes from the default theme.",
+  "color": {
+    "$type": "color",
+    "accent": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.1059, 0.4314, 0.2353],
+        "hex": "#1b6e3c"
+      }
+    },
+    "accent-ink": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [1.0, 1.0, 1.0],
+        "hex": "#ffffff"
+      }
+    },
+    "accent-soft": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [0.8902, 0.9529, 0.9137],
+        "hex": "#e3f3e9"
+      }
+    }
+  }
+}

@@ -189,6 +189,45 @@ describe('renderPage', () => {
   });
 });
 
+describe('brand themes', () => {
+  const document = documentFrom(
+    '<screen name="s" purpose="Brand."><section name="a"><heading>Hi</heading></section></screen>',
+  );
+
+  it('adds the brand styles and marks the page', () => {
+    const page = renderPage(document, { brand: 'ocean' });
+    expect(page).toContain('<body data-tosyn data-brand="ocean">');
+    expect(page).toContain("[data-brand='ocean']");
+    expect(page).toContain('--tosyn-color-accent: #006688;');
+  });
+
+  it('leaves the default theme alone when no brand is chosen', () => {
+    const page = renderPage(document);
+    expect(page).not.toContain('data-brand');
+    expect(page).not.toContain('#006688');
+  });
+
+  it('accepts a custom set of brands and explains an unknown one', () => {
+    const brands = {
+      plum: {
+        label: 'Plum',
+        light: [
+          {
+            color: {
+              $type: 'color',
+              accent: {
+                $value: { colorSpace: 'srgb', components: [0.4, 0.1, 0.3], hex: '#661a4d' },
+              },
+            },
+          },
+        ],
+      },
+    };
+    expect(renderPage(document, { brand: 'plum', brands })).toContain('#661a4d');
+    expect(() => renderPage(document, { brand: 'gold' })).toThrow(/Use one of: ocean, forest/);
+  });
+});
+
 describe('componentCss', () => {
   it('matches styles.css', () => {
     const source = readFileSync(new URL('./styles.css', import.meta.url), 'utf8');

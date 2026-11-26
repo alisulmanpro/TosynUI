@@ -33,6 +33,10 @@
     },
     "./base.tokens.json": "./dist/tokens/base.tokens.json",
     "./dark.tokens.json": "./dist/tokens/dark.tokens.json",
+    "./ocean.tokens.json": "./dist/tokens/ocean.tokens.json",
+    "./ocean.dark.tokens.json": "./dist/tokens/ocean.dark.tokens.json",
+    "./forest.tokens.json": "./dist/tokens/forest.tokens.json",
+    "./forest.dark.tokens.json": "./dist/tokens/forest.dark.tokens.json",
     "./package.json": "./package.json"
   },
   "scripts": {

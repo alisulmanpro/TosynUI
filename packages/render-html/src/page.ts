@@ -1,5 +1,5 @@
-import { themeCss } from '@tosynui/tokens';
-import type { TokenTree } from '@tosynui/tokens';
+import { TokenError, brandCss, brands as builtInBrands, themeCss } from '@tosynui/tokens';
+import type { Brand, TokenTree } from '@tosynui/tokens';
 import type { TosynDocument } from '@tosynui/spec';
 import { renderDocument } from './render.js';
 import { componentCss } from './styles.generated.js';
@@ -17,6 +17,10 @@ export interface PageOptions {
   tokens?: TokenTree[];
   /** Token trees that override the light theme in dark mode. */
   darkTokens?: TokenTree[];
+  /** Name of a brand theme, such as `ocean`. Leave out for the default theme. */
+  brand?: string;
+  /** Brand themes to choose from, by name. Defaults to the built-in brands. */
+  brands?: Readonly<Record<string, Brand>>;
 }
 
 const PAGE_CSS = `@layer tosyn.page {
@@ -27,12 +31,23 @@ const PAGE_CSS = `@layer tosyn.page {
 }`;
 
 /** The complete stylesheet: layer order, theme variables and component styles. */
-export function stylesheet(options: Pick<PageOptions, 'tokens' | 'darkTokens'> = {}): string {
+export function stylesheet(
+  options: Pick<PageOptions, 'tokens' | 'darkTokens' | 'brand' | 'brands'> = {},
+): string {
   const theme = themeCss({
     ...(options.tokens ? { light: options.tokens } : {}),
     ...(options.darkTokens ? { dark: options.darkTokens } : {}),
   });
-  return `@layer tosyn.tokens, tosyn.components, tosyn.page;\n${theme}\n${componentCss}\n${PAGE_CSS}\n`;
+  let brand = '';
+  if (options.brand) {
+    const chosen = (options.brands ?? builtInBrands)[options.brand];
+    if (!chosen) {
+      const known = Object.keys(options.brands ?? builtInBrands).join(', ');
+      throw new TokenError(`Unknown brand "${options.brand}". Use one of: ${known}.`);
+    }
+    brand = `${brandCss(options.brand, chosen)}\n`;
+  }
+  return `@layer tosyn.tokens, tosyn.components, tosyn.page;\n${theme}\n${brand}${componentCss}\n${PAGE_CSS}\n`;
 }
 
 /** Renders a valid document as a standalone HTML page with its styles inlined. */
@@ -52,7 +67,7 @@ export function renderPage(document: TosynDocument, options: PageOptions = {}): 
 <style>
 ${stylesheet(options)}</style>
 </head>
-<body data-tosyn${theme === 'system' ? '' : ` data-theme="${theme}"`}>
+<body data-tosyn${theme === 'system' ? '' : ` data-theme="${theme}"`}${options.brand ? ` data-brand="${escapeText(options.brand)}"` : ''}>
 ${renderDocument(document, { scope: false })}
 </body>
 </html>

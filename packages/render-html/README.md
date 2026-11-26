@@ -8,6 +8,7 @@ import { renderDocument, renderPage, stylesheet } from '@tosynui/render-html';
 const fragment = renderDocument(document); // <main class="ts-screen" data-tosyn>…</main>
 const page = renderPage(document, { theme: 'dark' }); // standalone page, styles inlined
 const css = stylesheet(); // theme variables and component styles
+const ocean = renderPage(document, { brand: 'ocean' }); // built-in brand theme (also: forest)
 ```
 
 The output uses native elements only and works without JavaScript:

@@ -41,6 +41,20 @@ test('switches examples and themes', async ({ page }) => {
   await expect(preview(page).locator('body')).toHaveAttribute('data-theme', 'dark');
 });
 
+test('switches brand themes', async ({ page }) => {
+  await page.getByLabel('Brand').selectOption('ocean');
+  await expect(preview(page).locator('body')).toHaveAttribute('data-brand', 'ocean');
+  const button = preview(page).getByRole('button', { name: 'Calculate BMI' });
+  await expect(button).toHaveCSS('background-color', 'rgb(0, 102, 136)');
+
+  await page.getByLabel('Theme').selectOption('dark');
+  await expect(button).toHaveCSS('background-color', 'rgb(92, 200, 240)');
+
+  await page.getByLabel('Brand').selectOption('');
+  await expect(preview(page).locator('body')).not.toHaveAttribute('data-brand');
+  await expect(button).toHaveCSS('background-color', 'rgb(142, 166, 255)');
+});
+
 test('lists findings with their line and keeps the last valid preview', async ({ page }) => {
   await page
     .getByLabel('Tosyn markup')

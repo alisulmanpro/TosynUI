@@ -1,6 +1,6 @@
 import { renderGuide } from '@tosynui/ai';
 import { attachLocations, parseMarkup } from '@tosynui/parser';
-import { renderDocument, renderPage } from '@tosynui/render-html';
+import { brands, renderDocument, renderPage } from '@tosynui/render-html';
 import type { Theme } from '@tosynui/render-html';
 import { checkDocument } from '@tosynui/rules';
 import type { Finding } from '@tosynui/rules';
@@ -27,6 +27,7 @@ function requireElement<T extends Element>(selector: string): T {
 const source = requireElement<HTMLTextAreaElement>('#source');
 const example = requireElement<HTMLSelectElement>('#example');
 const theme = requireElement<HTMLSelectElement>('#theme');
+const brand = requireElement<HTMLSelectElement>('#brand');
 const status = requireElement<HTMLElement>('#status');
 const list = requireElement<HTMLOListElement>('#findings');
 const preview = requireElement<HTMLIFrameElement>('#preview');
@@ -34,6 +35,13 @@ const htmlOutput = requireElement<HTMLElement>('#html-output');
 const notice = requireElement<HTMLElement>('#notice');
 
 requireElement<HTMLAnchorElement>('#docs-link').href = docsUrl;
+
+for (const [name, { label }] of Object.entries(brands)) brand.add(new Option(label, name));
+
+/** Page options for the chosen theme and brand. */
+function pageOptions(): { theme: Theme; brand?: string } {
+  return { theme: theme.value as Theme, ...(brand.value ? { brand: brand.value } : {}) };
+}
 
 let current: TosynDocument | undefined;
 
@@ -56,7 +64,7 @@ function update(): void {
   showFindings(findings, valid);
   if (valid && parsed.document) {
     current = parsed.document;
-    preview.srcdoc = renderPage(current, { theme: theme.value as Theme });
+    preview.srcdoc = renderPage(current, pageOptions());
     htmlOutput.textContent = renderDocument(current, { scope: false })
       .replaceAll('><', '>\n<')
       .trim();
@@ -120,6 +128,7 @@ function loadExample(name: string): void {
 
 example.addEventListener('change', () => loadExample(example.value));
 theme.addEventListener('change', update);
+brand.addEventListener('change', update);
 source.addEventListener('input', update);
 
 requireElement<HTMLButtonElement>('#copy-guide').addEventListener('click', async () => {
@@ -134,9 +143,7 @@ requireElement<HTMLButtonElement>('#copy-guide').addEventListener('click', async
 requireElement<HTMLButtonElement>('#download').addEventListener('click', () => {
   if (!current) return;
   const name = String(current.root.attributes?.name ?? 'screen');
-  const blob = new Blob([renderPage(current, { theme: theme.value as Theme })], {
-    type: 'text/html',
-  });
+  const blob = new Blob([renderPage(current, pageOptions())], { type: 'text/html' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
   link.download = `${name}.html`;

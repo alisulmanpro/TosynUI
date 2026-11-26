@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import {
   TokenError,
   baseTokens,
+  brandCss,
+  brands,
   contrastRatio,
   cssValue,
   cssVariable,
@@ -9,7 +11,7 @@ import {
   resolveTokens,
   themeCss,
 } from './index.js';
-import type { ColorValue } from './index.js';
+import type { Brand, ColorValue, TokenTree } from './index.js';
 
 function srgb(hex: string): ColorValue {
   const components = [1, 3, 5].map((index) => parseInt(hex.slice(index, index + 2), 16) / 255);
@@ -110,7 +112,7 @@ describe('CSS output', () => {
   });
 });
 
-describe('built-in themes meet WCAG 2.2 AA contrast', () => {
+describe('built-in themes and brands meet WCAG 2.2 AA contrast', () => {
   const text: [string, string][] = [
     ['ink', 'surface'],
     ['ink', 'surface-raised'],
@@ -138,10 +140,16 @@ describe('built-in themes meet WCAG 2.2 AA contrast', () => {
     ['focus', 'surface-sunken'],
   ];
 
-  for (const [theme, trees] of [
+  const themes: [string, TokenTree[]][] = [
     ['light', [baseTokens]],
     ['dark', [baseTokens, darkTokens]],
-  ] as const) {
+    ...Object.entries(brands).flatMap(([name, brand]): [string, TokenTree[]][] => [
+      [`${name} light`, [baseTokens, ...brand.light]],
+      [`${name} dark`, [baseTokens, ...brand.light, darkTokens, ...(brand.dark ?? [])]],
+    ]),
+  ];
+
+  for (const [theme, trees] of themes) {
     const colors = new Map(
       resolveTokens(...trees)
         .filter((token) => token.type === 'color')
@@ -161,5 +169,52 @@ describe('built-in themes meet WCAG 2.2 AA contrast', () => {
   it('computes known ratios', () => {
     expect(contrastRatio(srgb('#000000'), srgb('#ffffff'))).toBeCloseTo(21, 5);
     expect(contrastRatio(srgb('#777777'), srgb('#777777'))).toBe(1);
+  });
+});
+
+describe('brandCss', () => {
+  const ocean = brands.ocean!;
+
+  it('lists only the variables the brand changes', () => {
+    const css = brandCss('ocean', ocean);
+    expect(css).toContain(":where([data-tosyn][data-brand='ocean']) {");
+    expect(css).toContain('--tosyn-color-accent: #006688;');
+    expect(css).toContain('--tosyn-color-focus: #006688;');
+    expect(css).not.toContain('--tosyn-space-sm');
+    expect(css).not.toContain('--tosyn-color-surface:');
+  });
+
+  it('sets dark colours for data-theme and for the system preference', () => {
+    const css = brandCss('ocean', ocean);
+    const dark = css.slice(css.indexOf("[data-theme='dark']"));
+    expect(dark).toContain('--tosyn-color-accent: #5cc8f0;');
+    expect(css).toContain('prefers-color-scheme: dark');
+    expect(css).toContain(":not([data-theme='light'])");
+  });
+
+  it('keeps the default dark colours when a brand sets none, instead of leaking its light ones', () => {
+    const brand: Brand = { label: 'Plain', light: [brands.forest!.light[0]!] };
+    const css = brandCss('plain', brand);
+    const dark = css.slice(css.indexOf("[data-theme='dark']"));
+    expect(dark).toContain('--tosyn-color-accent: #8ea6ff;');
+  });
+
+  it('accepts a custom tokens file', () => {
+    const custom: Brand = {
+      label: 'Plum',
+      light: [
+        {
+          color: {
+            $type: 'color',
+            accent: { $value: srgb('#7a1f5c') },
+          },
+        },
+      ],
+    };
+    expect(brandCss('plum', custom)).toContain('--tosyn-color-accent: #7a1f5c;');
+  });
+
+  it('rejects names that are not kebab-case', () => {
+    expect(() => brandCss("x'] { }", brands.ocean!)).toThrow(TokenError);
   });
 });

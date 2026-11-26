@@ -1,6 +1,10 @@
 import base from './tokens/base.tokens.json' with { type: 'json' };
 import dark from './tokens/dark.tokens.json' with { type: 'json' };
-import { resolveTokens } from './resolve.js';
+import forest from './tokens/forest.tokens.json' with { type: 'json' };
+import forestDark from './tokens/forest.dark.tokens.json' with { type: 'json' };
+import ocean from './tokens/ocean.tokens.json' with { type: 'json' };
+import oceanDark from './tokens/ocean.dark.tokens.json' with { type: 'json' };
+import { TokenError, resolveTokens } from './resolve.js';
 import type { ColorValue, ResolvedToken, TokenTree, UnitValue } from './resolve.js';
 
 /** The default theme, in DTCG format. */
@@ -103,6 +107,69 @@ export function themeCss(options: ThemeCssOptions = {}): string {
         .split('\n')
         .map((line) => `  ${line}`)
         .join('\n')}\n  }\n}\n`;
+  }
+  return `${css}}\n`;
+}
+
+/**
+ * A brand theme: token files that change the default theme, usually only the accent colours.
+ * Anything a brand does not set comes from the default theme.
+ */
+export interface Brand {
+  /** Name to show in a theme picker. */
+  label: string;
+  /** Token trees that override the default light theme. */
+  light: TokenTree[];
+  /** Token trees that override the default dark theme. Defaults to no changes. */
+  dark?: TokenTree[];
+}
+
+/** The built-in brand themes, by name. */
+export const brands: Readonly<Record<string, Brand>> = {
+  ocean: { label: 'Ocean', light: [ocean], dark: [oceanDark] },
+  forest: { label: 'Forest', light: [forest], dark: [forestDark] },
+};
+
+const BRAND_NAME = /^[a-z][a-z0-9-]*$/;
+
+function valuesOf(trees: readonly TokenTree[]): Map<string, string> {
+  return new Map(resolveTokens(...trees).map((token) => [token.name, cssValue(token)]));
+}
+
+/**
+ * Generates the CSS that applies a brand theme to an element with `data-brand="<name>"`.
+ *
+ * It lists only the variables the brand changes, in light and dark mode, so it is small and
+ * goes after `themeCss()`. A brand that sets no dark colours keeps the default dark theme.
+ */
+export function brandCss(name: string, brand: Brand, options: { scope?: string } = {}): string {
+  if (!BRAND_NAME.test(name)) {
+    throw new TokenError(`Brand name "${name}" must be kebab-case, for example "ocean".`);
+  }
+  const scope = `${options.scope ?? '[data-tosyn]'}[data-brand='${name}']`;
+
+  const lightDefault = valuesOf([baseTokens]);
+  const lightBrand = valuesOf([baseTokens, ...brand.light]);
+  const darkDefault = valuesOf([baseTokens, darkTokens]);
+  // Dark overrides come after the brand's light colours so a brand never leaks its light accent
+  // into dark mode.
+  const darkBrand = valuesOf([baseTokens, ...brand.light, darkTokens, ...(brand.dark ?? [])]);
+
+  const lightChanged = [...lightBrand].filter(([key, value]) => lightDefault.get(key) !== value);
+  const lightChangedNames = new Set(lightChanged.map(([key]) => key));
+  const darkChanged = [...darkBrand].filter(
+    ([key, value]) =>
+      value !== (lightChangedNames.has(key) ? lightBrand.get(key) : darkDefault.get(key)),
+  );
+
+  const lines = (entries: [string, string][], indent: string): string =>
+    entries.map(([key, value]) => `${indent}${cssVariable(key)}: ${value};`).join('\n');
+
+  let css = `@layer tosyn.tokens {\n:where(${scope}) {\n${lines(lightChanged, '  ')}\n}\n`;
+  if (darkChanged.length > 0) {
+    css +=
+      `:where(${scope}[data-theme='dark']) {\n${lines(darkChanged, '  ')}\n}\n` +
+      `@media (prefers-color-scheme: dark) {\n  :where(${scope}:not([data-theme='light'])) {\n${lines(darkChanged, '    ')}\n  }\n}\n`;
   }
   return `${css}}\n`;
 }
