@@ -38,6 +38,11 @@ export default function Page() {
         <p>
           <a href={playgroundUrl}>Open the playground</a> to write Tosyn markup and see the result.
         </p>
+        <p>
+          For AI tools: <a href="/llms.txt">/llms.txt</a> is a short map of this site, and{' '}
+          <a href="/tosyn-guide.md">/tosyn-guide.md</a> is the writing guide to give a model before
+          it writes a screen.
+        </p>
       </header>
 
       <nav aria-label="Elements">
