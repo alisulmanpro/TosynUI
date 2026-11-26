@@ -12,6 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@tosynui/ai": "workspace:*",
     "@tosynui/parser": "workspace:*",
     "@tosynui/render-html": "workspace:*",
     "@tosynui/rules": "workspace:*",
