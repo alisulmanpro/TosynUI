@@ -5,14 +5,14 @@
  * here in the same pull request that makes a user-visible change.
  */
 export interface ChangelogEntry {
-  /** Version number, or a label such as "Next release (0.2.0)" before it is published. */
+  /** Version number. Before a release is published, use a label such as "Next release (0.3.0)". */
   readonly version: string;
   readonly changes: readonly string[];
 }
 
 export const changelog: readonly ChangelogEntry[] = [
   {
-    version: 'Next release (0.2.0)',
+    version: '0.2.0',
     changes: [
       'Language 0.2: added the `result` element (a value the screen works out after submit) and `feedback when="after-submit"`, with two new design rules, `result-needs-submit` and `after-submit-needs-submit`.',
       'Added brand themes (`ocean`, `forest`) from tokens files, and a Brand picker in the playground.',

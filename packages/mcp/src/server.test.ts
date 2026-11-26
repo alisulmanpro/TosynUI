@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import type { Client } from '@modelcontextprotocol/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SERVER_NAME, SERVER_VERSION } from './index.js';
@@ -16,6 +17,13 @@ describe('Tosyn MCP server', () => {
 
   it('identifies itself', () => {
     expect(client.getServerVersion()).toMatchObject({ name: SERVER_NAME, version: SERVER_VERSION });
+  });
+
+  it('reports the version in package.json, so a release cannot report the wrong number', () => {
+    const manifest = JSON.parse(
+      readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
+    ) as { version: string };
+    expect(SERVER_VERSION).toBe(manifest.version);
   });
 
   it('lists its tools with descriptions and output schemas', async () => {

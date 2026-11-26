@@ -24,7 +24,7 @@ Options:
   -v, --version         Show the version
 `;
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.2.0';
 
 /** Where output goes. Injected so the CLI can be tested without a terminal. */
 export interface Io {

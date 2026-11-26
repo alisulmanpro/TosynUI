@@ -1,6 +1,6 @@
 {
   "name": "@tosynui/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Tosyn design tokens in the W3C DTCG format, with CSS generation and contrast checks.",
   "keywords": [
     "tosyn",

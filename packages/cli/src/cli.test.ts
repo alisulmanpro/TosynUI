@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { USAGE, VERSION, checkMarkup, run } from './index.js';
 import type { Io } from './index.js';
 
@@ -140,5 +141,14 @@ describe('checkMarkup', () => {
       'syntax-error',
       'syntax-error',
     ]);
+  });
+});
+
+describe('VERSION', () => {
+  it('matches package.json, so a release cannot print the wrong number', () => {
+    const manifest = JSON.parse(
+      readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
+    ) as { version: string };
+    expect(VERSION).toBe(manifest.version);
   });
 });
