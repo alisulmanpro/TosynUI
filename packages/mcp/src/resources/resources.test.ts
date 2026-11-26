@@ -25,6 +25,21 @@ describe('resources', () => {
     ]);
   });
 
+  it('serves the 0.2 guide, with result and feedback timing', async () => {
+    const result = await client.readResource({ uri: 'tosyn://guide' });
+    const text = (result.contents[0] as { text: string }).text;
+    expect(text).toContain('Writing user interfaces in Tosyn 0.2');
+    expect(text).toContain('<result');
+    expect(text).toContain('after-submit');
+  });
+
+  it('serves the 0.2 examples that use result and after-submit', async () => {
+    const bmi = await client.readResource({ uri: 'tosyn://examples/bmi-calculator' });
+    expect((bmi.contents[0] as { text: string }).text).toContain('<result name="bmi"');
+    const settings = await client.readResource({ uri: 'tosyn://examples/account-settings' });
+    expect((settings.contents[0] as { text: string }).text).toContain('when="after-submit"');
+  });
+
   it('lists the guide and every example', async () => {
     const { resources } = await client.listResources();
     expect(resources.map((resource) => resource.uri).sort()).toEqual([

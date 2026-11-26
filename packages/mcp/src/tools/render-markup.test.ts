@@ -60,4 +60,15 @@ describe('render_markup', () => {
     const result = await render({ markup: VALID, theme: 'blue' });
     expect(result.isError).toBe(true);
   });
+
+  it('renders result and after-submit feedback (0.2)', async () => {
+    const result = await render({
+      markup:
+        '<screen name="s" purpose="p"><section name="a"><heading>Check</heading><field name="n" label="Number" kind="number" /><action intent="submit" importance="primary">Go</action><result name="r" label="Answer" /><feedback tone="success" when="after-submit">Done.</feedback></section></screen>',
+    });
+    expect(result.structuredContent).toMatchObject({ rendered: true });
+    const html = (result.structuredContent as { html: string }).html;
+    expect(html).toContain('<output class="ts-output"');
+    expect(html).toMatch(/<[a-z]+ [^>]*hidden[^>]*>Done\./);
+  });
 });
