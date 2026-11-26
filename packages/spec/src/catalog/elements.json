@@ -1,5 +1,5 @@
 {
-  "specVersion": "0.1",
+  "specVersion": "0.2",
   "root": "screen",
   "elements": {
     "screen": {
@@ -38,7 +38,7 @@
         }
       },
       "content": "elements",
-      "children": ["section", "heading", "text", "field", "action", "feedback"]
+      "children": ["section", "heading", "text", "field", "action", "feedback", "result"]
     },
     "heading": {
       "summary": "The title of the section that contains it.",
@@ -125,16 +125,45 @@
     },
     "feedback": {
       "summary": "A message that reports a result, status or problem to the user.",
-      "guidance": "Pick `tone` by meaning, not by colour. Renderers announce feedback to assistive technology.",
+      "guidance": "Pick `tone` by meaning, not by colour. Renderers announce feedback to assistive technology. Do not show a success message from the start: give it `when=\"after-submit\"`.",
       "attributes": {
         "tone": {
           "type": "enum",
           "values": ["info", "success", "warning", "error"],
           "required": true,
           "description": "The meaning of the message."
+        },
+        "when": {
+          "type": "enum",
+          "values": ["always", "after-submit"],
+          "default": "always",
+          "description": "When the message is shown. Use `after-submit` for a message that appears only after the user submits, such as a success message."
         }
       },
       "content": "text",
+      "children": []
+    },
+    "result": {
+      "summary": "A value the screen works out and shows after the user submits, such as a total or a recommendation.",
+      "guidance": "Give it a `label` that names the value. Never write the value itself: the app fills it in. Use `unit` for measured values instead of writing the unit into the label.",
+      "attributes": {
+        "name": {
+          "type": "identifier",
+          "required": true,
+          "unique": true,
+          "description": "Stable identifier for the value. Unique within the screen."
+        },
+        "label": {
+          "type": "string",
+          "required": true,
+          "description": "Visible label that names the value."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement for the value, such as `kg`, `mm` or `PKR`."
+        }
+      },
+      "content": "none",
       "children": []
     }
   }

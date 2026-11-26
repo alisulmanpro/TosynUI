@@ -64,6 +64,6 @@ When a domain is added later, change these variables in Vercel and redeploy.
 
 ## Check a deployment
 
-- The docs address lists all seven elements and has a link to the playground.
+- The docs address lists all eight elements and has a link to the playground.
 - The playground renders an example in the light and dark theme and has a link to the reference.
 - A test pull request shows two preview links.

@@ -11,7 +11,7 @@ export const exampleMarkup = `<screen name="bmi-calculator" purpose="Work out bo
 
   <section name="result">
     <heading>Your result</heading>
-    <feedback tone="info">Your BMI will appear here.</feedback>
+    <result name="bmi" label="Your BMI" />
     <text tone="muted">BMI is a screening measure, not a diagnosis.</text>
   </section>
 </screen>

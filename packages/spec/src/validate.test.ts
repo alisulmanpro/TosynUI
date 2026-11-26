@@ -5,7 +5,7 @@ import type { ElementNode, TosynDocument } from './index.js';
 
 function screen(...children: ElementNode[]): TosynDocument {
   return {
-    tosyn: '0.1',
+    tosyn: '0.2',
     root: {
       element: 'screen',
       attributes: { name: 'test', purpose: 'Exercise the validator.' },
@@ -24,7 +24,7 @@ describe('validateDocument', () => {
   });
 
   it('stops at the schema when the shape is wrong', () => {
-    const result = validateDocument({ tosyn: '0.1', root: { element: 'screen', extra: 1 } });
+    const result = validateDocument({ tosyn: '0.2', root: { element: 'screen', extra: 1 } });
     expect(result.valid).toBe(false);
     expect(result.diagnostics.every((d) => d.code === 'invalid-structure')).toBe(true);
   });
@@ -35,7 +35,7 @@ describe('validateDocument', () => {
 
   it('requires the root element', () => {
     const result = validateDocument({
-      tosyn: '0.1',
+      tosyn: '0.2',
       root: { element: 'section', attributes: { name: 'main' } },
     });
     expect(result.diagnostics[0]).toMatchObject({ code: 'invalid-root', path: '/root/element' });
@@ -117,7 +117,7 @@ describe('validateDocument', () => {
 
   it('rejects elements that are not allowed in their parent', () => {
     const document: TosynDocument = {
-      tosyn: '0.1',
+      tosyn: '0.2',
       root: {
         element: 'screen',
         attributes: { name: 'test', purpose: 'Exercise the validator.' },
@@ -138,6 +138,47 @@ describe('validateDocument', () => {
     expect(
       codes(screen({ element: 'action', attributes: { intent: 'submit' }, children: [] })),
     ).toEqual(['empty-content']);
+  });
+
+  it('accepts a result and a message that waits for a submit', () => {
+    const result = validateDocument(
+      screen(
+        { element: 'result', attributes: { name: 'total', label: 'Total', unit: 'kg' } },
+        {
+          element: 'feedback',
+          attributes: { tone: 'success', when: 'after-submit' },
+          children: [{ text: 'Sent' }],
+        },
+      ),
+    );
+    expect(result.diagnostics).toEqual([]);
+  });
+
+  it('requires a result to have a name and a label, and no content', () => {
+    const result = validateDocument(
+      screen({ element: 'result', attributes: {}, children: [{ text: 'x' }] }),
+    );
+    expect(result.diagnostics.map((diagnostic) => diagnostic.code).sort()).toEqual([
+      'invalid-child',
+      'missing-attribute',
+      'missing-attribute',
+    ]);
+  });
+
+  it('explains an invalid value for when', () => {
+    const result = validateDocument(
+      screen({
+        element: 'feedback',
+        attributes: { tone: 'info', when: 'later' },
+        children: [{ text: 'Hi' }],
+      }),
+    );
+    expect(result.diagnostics).toEqual([
+      expect.objectContaining({
+        code: 'invalid-attribute-value',
+        message: expect.stringContaining('after-submit'),
+      }),
+    ]);
   });
 
   it('rejects duplicate unique values', () => {

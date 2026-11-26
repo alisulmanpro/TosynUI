@@ -246,6 +246,27 @@
     background: var(--tosyn-color-danger-soft);
   }
 
+  :where(.ts-feedback[hidden]) {
+    display: none;
+  }
+
+  :where(.ts-result) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tosyn-space-3xs);
+  }
+
+  :where(.ts-result-value) {
+    display: flex;
+    gap: var(--tosyn-space-2xs);
+    align-items: baseline;
+  }
+
+  :where(.ts-output) {
+    font-size: var(--tosyn-font-size-xl);
+    font-weight: var(--tosyn-font-weight-semibold);
+  }
+
   @media (width < 30rem) {
     :where(.ts-actions) {
       flex-direction: column;

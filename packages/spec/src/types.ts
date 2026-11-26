@@ -17,7 +17,7 @@ export type TosynNode = ElementNode | TextNode;
 
 /** The intermediate representation (IR) of one screen. */
 export interface TosynDocument {
-  /** Version of the intent language, for example `"0.1"`. */
+  /** Version of the intent language, for example `"0.2"`. */
   tosyn: string;
   root: ElementNode;
 }

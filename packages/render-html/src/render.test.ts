@@ -94,6 +94,30 @@ describe('renderDocument', () => {
     ).toContain('role="status"');
   });
 
+  it('hides a message that waits for a submit', () => {
+    const html = render(
+      '<section name="a"><feedback tone="success" when="after-submit">Sent</feedback></section>',
+    );
+    expect(html).toContain('data-when="after-submit" hidden role="status"');
+    expect(
+      render('<section name="a"><feedback tone="success">Sent</feedback></section>'),
+    ).not.toContain('hidden');
+  });
+
+  it('renders a result as a labelled, empty output', () => {
+    const html = render(
+      '<section name="a"><result name="wire-size" label="Wire size" unit="mm&#178;" /></section>',
+    );
+    expect(html).toContain('<div class="ts-result" data-result="wire-size">');
+    expect(html).toMatch(
+      /<span class="ts-label" id="demo-result-wire-size-label">Wire size<\/span>/,
+    );
+    expect(html).toContain(
+      '<output class="ts-output" name="wire-size" aria-labelledby="demo-result-wire-size-label">\u2014</output>',
+    );
+    expect(html).toContain('<span class="ts-unit">mm\u00b2</span>');
+  });
+
   it('escapes text and attribute values', () => {
     const html = render(
       '<section name="a"><heading>&lt;script&gt;</heading><field name="q" label="&quot;Quote&quot; &amp; more" /></section>',

@@ -61,7 +61,7 @@ For one or two prompts, start a fresh chat **without** the guide and ask for the
 
 ## 6. What to expect today
 
-Tosyn 0.1 has seven elements. Models will sometimes reach for things it does not have yet, such as
+Tosyn 0.2 has eight elements. Models will sometimes reach for things it does not have yet, such as
 dropdowns, checkboxes, images, lists, tables or navigation menus. Those attempts are reported as
 `unknown-element` or `unknown-attribute`. **Write them down**: they are the best evidence for what
 the language should add next.
