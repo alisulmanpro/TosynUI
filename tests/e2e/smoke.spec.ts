@@ -90,3 +90,42 @@ test('reports unclosed tags', async ({ page }) => {
   await page.getByLabel('Tosyn markup').fill('<screen name="a" purpose="p"><section name="s">');
   await expect(page.locator('#findings')).toContainText('syntax-error');
 });
+
+const SHARED = [
+  '<screen name="shared-demo" purpose="Check share links.">',
+  '  <section name="main">',
+  '    <heading>Shared screen \u0627\u0631\u062f\u0648 \u2713</heading>',
+  '    <text>Made to be shared.</text>',
+  '  </section>',
+  '</screen>',
+].join('\n');
+
+test('share keeps the markup in the link and restores it', async ({ page, context }) => {
+  await page.getByLabel('Tosyn markup').fill(SHARED);
+  await page.getByRole('button', { name: 'Share' }).click();
+  await expect(page).toHaveURL(/#markup=[A-Za-z0-9_-]+$/);
+  await expect(page.locator('#notice')).toContainText(/Link copied|address bar/);
+
+  const opened = await context.newPage();
+  opened.on('pageerror', (error) => errors.push(error.message));
+  await opened.goto(page.url());
+  await expect(opened.getByLabel('Tosyn markup')).toHaveValue(SHARED);
+  await expect(
+    opened.frameLocator('#preview').getByRole('heading', { name: /Shared screen/ }),
+  ).toBeVisible();
+});
+
+test('editing after sharing clears the link, and a broken link falls back to an example', async ({
+  page,
+}) => {
+  await page.getByLabel('Tosyn markup').fill(SHARED);
+  await page.getByRole('button', { name: 'Share' }).click();
+  await expect(page).toHaveURL(/#markup=/);
+  await page.getByLabel('Tosyn markup').press('End');
+  await page.getByLabel('Tosyn markup').pressSequentially(' ');
+  await expect(page).not.toHaveURL(/#markup=/);
+
+  await page.goto('/#markup=not-a-real-link');
+  await expect(page.locator('#notice')).toContainText('share link is broken');
+  await expect(page.locator('#status')).toHaveText('Valid. No problems found.');
+});

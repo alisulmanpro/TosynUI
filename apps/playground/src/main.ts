@@ -8,6 +8,7 @@ import type { TosynDocument } from '@tosynui/spec';
 import accountSettings from '../../../examples/account-settings.tosyn?raw';
 import bmiCalculator from '../../../examples/bmi-calculator.tosyn?raw';
 import signIn from '../../../examples/sign-in.tosyn?raw';
+import { decodeMarkup, encodeMarkup, isShareHash } from './share';
 import { docsUrl } from './site';
 import './app.css';
 
@@ -121,7 +122,14 @@ function announce(message: string): void {
   }, 3000);
 }
 
+/** Once the markup changes, the link no longer matches it, so reloading must not restore old markup. */
+function clearShareHash(): void {
+  if (isShareHash(location.hash))
+    history.replaceState(null, '', location.pathname + location.search);
+}
+
 function loadExample(name: string): void {
+  clearShareHash();
   source.value = EXAMPLES[name] ?? '';
   update();
 }
@@ -140,6 +148,36 @@ requireElement<HTMLButtonElement>('#copy-guide').addEventListener('click', async
   }
 });
 
+/** Shows the markup from a share link. Returns false when the hash has none or is broken. */
+async function loadShared(): Promise<boolean> {
+  if (!isShareHash(location.hash)) return false;
+  const markup = await decodeMarkup(location.hash);
+  if (markup === undefined) {
+    announce('This share link is broken. Showing an example instead.');
+    return false;
+  }
+  source.value = markup;
+  update();
+  return true;
+}
+
+requireElement<HTMLButtonElement>('#share').addEventListener('click', async () => {
+  history.replaceState(
+    null,
+    '',
+    location.pathname + location.search + (await encodeMarkup(source.value)),
+  );
+  try {
+    await navigator.clipboard.writeText(location.href);
+    announce('Link copied. Anyone who opens it sees this markup.');
+  } catch {
+    announce('Copying is blocked here. The link is in the address bar.');
+  }
+});
+
+source.addEventListener('input', clearShareHash);
+window.addEventListener('hashchange', () => void loadShared());
+
 requireElement<HTMLButtonElement>('#download').addEventListener('click', () => {
   if (!current) return;
   const name = String(current.root.attributes?.name ?? 'screen');
@@ -151,4 +189,6 @@ requireElement<HTMLButtonElement>('#download').addEventListener('click', () => {
   URL.revokeObjectURL(link.href);
 });
 
-loadExample(example.value);
+void loadShared().then((shared) => {
+  if (!shared) loadExample(example.value);
+});
