@@ -1,6 +1,6 @@
 {
   "name": "@tosynui/ai",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "AI tooling for Tosyn: a generated guide that teaches models to write Tosyn.",
   "keywords": [
     "tosyn",

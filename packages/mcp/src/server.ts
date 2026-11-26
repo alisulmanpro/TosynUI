@@ -6,7 +6,7 @@ import { registerExampleResources } from './resources/examples.js';
 import { registerGuideResource } from './resources/guide.js';
 
 export const SERVER_NAME = 'tosyn';
-export const SERVER_VERSION = '0.1.0';
+export const SERVER_VERSION = '0.2.0';
 
 /**
  * Creates the Tosyn MCP server with all of its tools, resources and prompts.

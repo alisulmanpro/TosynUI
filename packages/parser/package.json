@@ -1,6 +1,6 @@
 {
   "name": "@tosynui/parser",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Parses Tosyn markup into the Tosyn intermediate representation.",
   "keywords": [
     "tosyn",

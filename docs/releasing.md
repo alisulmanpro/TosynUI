@@ -3,16 +3,17 @@
 All packages in `packages/` are published under the `@tosynui` organisation on npm. The apps in
 `apps/` are private and never published.
 
-| Package                | Purpose                                |
-| ---------------------- | -------------------------------------- |
-| `@tosynui/spec`        | Element catalog, schemas and validator |
-| `@tosynui/parser`      | Markup parser                          |
-| `@tosynui/rules`       | Design rules and `checkDocument`       |
-| `@tosynui/tokens`      | Design tokens and CSS generation       |
-| `@tosynui/render-html` | HTML and CSS renderer                  |
-| `@tosynui/ai`          | AI writing guide                       |
-| `@tosynui/cli`         | `tosyn` command                        |
-| `@tosynui/mcp`         | `tosyn-mcp` MCP server                 |
+| Package                        | Purpose                                |
+| ------------------------------ | -------------------------------------- |
+| `@tosynui/spec`                | Element catalog, schemas and validator |
+| `@tosynui/parser`              | Markup parser                          |
+| `@tosynui/rules`               | Design rules and `checkDocument`       |
+| `@tosynui/tokens`              | Design tokens and CSS generation       |
+| `@tosynui/render-html`         | HTML and CSS renderer                  |
+| `@tosynui/render-react-native` | React Native renderer                  |
+| `@tosynui/ai`                  | AI writing guide                       |
+| `@tosynui/cli`                 | `tosyn` command                        |
+| `@tosynui/mcp`                 | `tosyn-mcp` MCP server                 |
 
 ## One-time setup
 
@@ -78,4 +79,4 @@ pnpm -r exec pnpm pack --pack-destination ../../.packs
 ```
 
 Each tarball should contain `dist/`, `README.md`, `LICENSE` and `package.json`, and
-`workspace:*` should be replaced by `0.1.0`. Delete `.packs/` afterwards.
+`workspace:*` should be replaced by the release version. Delete `.packs/` afterwards.

@@ -1,6 +1,6 @@
 {
   "name": "@tosynui/render-react-native",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Renders Tosyn intent documents as React Native screens, with themes from @tosynui/tokens.",
   "keywords": [
     "tosyn",

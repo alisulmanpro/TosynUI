@@ -1,6 +1,6 @@
 {
   "name": "@tosynui/rules",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Design rules for Tosyn documents and a combined checker.",
   "keywords": [
     "tosyn",
