@@ -43,6 +43,9 @@ export default function Page() {
           <a href="/tosyn-guide.md">/tosyn-guide.md</a> is the writing guide to give a model before
           it writes a screen.
         </p>
+        <p>
+          <a href="/changelog">Changelog</a>: what changed in each release.
+        </p>
       </header>
 
       <nav aria-label="Elements">
