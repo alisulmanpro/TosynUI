@@ -25,9 +25,10 @@ export default function ChangelogPage() {
         </p>
       </header>
 
-      {changelog.map((entry) => (
-        <section key={entry.version} aria-labelledby={`v-${entry.version}`}>
-          <h2 id={`v-${entry.version}`}>{entry.version}</h2>
+      {changelog.map((entry, index) => (
+        // A numbered id: the version text can hold spaces, which aria-labelledby reads as several ids.
+        <section key={entry.version} aria-labelledby={`release-${index}`}>
+          <h2 id={`release-${index}`}>{entry.version}</h2>
           <ul>
             {entry.changes.map((change) => (
               <li key={change}>
