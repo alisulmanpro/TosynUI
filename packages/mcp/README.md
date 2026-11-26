@@ -3,18 +3,19 @@
 An [MCP](https://modelcontextprotocol.io) server that lets AI tools such as Claude Code, Claude
 Desktop and Cursor check and render Tosyn markup themselves.
 
-> **Status: complete for v0.1.** Two tools, the guide and examples as resources, and a prompt.
-> Publishing to npm is the last step; see [Build plan](#build-plan).
+> **Status: up to date with Tosyn 0.2.** Two tools, the guide and examples as resources, and a prompt.
+> The server reads the language, rules and guide from the workspace packages, so it always matches
+> the language version; tests check that `result` and `when="after-submit"` work through it.
 
 ## What it offers
 
-| Kind     | Name                      | What it does                                                       |
-| -------- | ------------------------- | ------------------------------------------------------------------ |
-| Tool     | `check_markup`            | Checks markup; returns every error and warning with line and fix.  |
-| Tool     | `render_markup`           | Renders valid markup as a full HTML page in light, dark or system. |
-| Resource | `tosyn://guide`           | The AI writing guide: every element, attribute and design rule.    |
-| Resource | `tosyn://examples/{name}` | Example screens: `bmi-calculator`, `sign-in`, `account-settings`.  |
-| Prompt   | `design_screen`           | Designs a screen from a description, then checks and fixes it.     |
+| Kind     | Name                      | What it does                                                         |
+| -------- | ------------------------- | -------------------------------------------------------------------- |
+| Tool     | `check_markup`            | Checks markup; returns every error and warning with line and fix.    |
+| Tool     | `render_markup`           | Renders valid markup as a full HTML page in light, dark or system.   |
+| Resource | `tosyn://guide`           | The AI writing guide (Tosyn 0.2): every element, attribute and rule. |
+| Resource | `tosyn://examples/{name}` | Example screens: `bmi-calculator`, `sign-in`, `account-settings`.    |
+| Prompt   | `design_screen`           | Designs a screen from a description, then checks and fixes it.       |
 
 Built on the MCP TypeScript SDK v2 (`@modelcontextprotocol/server`).
 
