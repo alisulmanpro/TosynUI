@@ -13,6 +13,10 @@ function elements(node: ElementNode, name?: string): ElementNode[] {
   );
 }
 
+function descendants(node: ElementNode): ElementNode[] {
+  return elements(node).flatMap((child) => [child, ...descendants(child)]);
+}
+
 function textOf(node: ElementNode): string {
   return (node.children ?? []).map((child) => ('text' in child ? child.text : '')).join('');
 }
@@ -199,6 +203,50 @@ export const rules: readonly Rule[] = [
       if (elements(parent.node, 'field').length === 0) {
         report(
           `The "${textOf(node).trim()}" action submits, but its section has no fields. Use intent="navigate" or move it next to the fields it submits.`,
+          path,
+        );
+      }
+    },
+  },
+  {
+    id: 'result-needs-submit',
+    severity: 'warning',
+    summary: 'Use a result only on a screen that has a submit action.',
+    rationale:
+      'A result is the value the screen works out after the user submits. Without a submit action it never has a value to show.',
+    check({ node, path }, report) {
+      if (node.element !== 'screen') return;
+      const all = descendants(node);
+      const hasResult = all.some((child) => child.element === 'result');
+      const hasSubmit = all.some(
+        (child) => child.element === 'action' && attribute(child, 'intent') === 'submit',
+      );
+      if (hasResult && !hasSubmit) {
+        report(
+          'This screen has a <result> but no submit action. Add an <action intent="submit"> that works it out.',
+          path,
+        );
+      }
+    },
+  },
+  {
+    id: 'after-submit-needs-submit',
+    severity: 'warning',
+    summary: 'Use when="after-submit" only on a screen that has a submit action.',
+    rationale:
+      'A message that waits for a submit never appears if nothing on the screen can be submitted.',
+    check({ node, path }, report) {
+      if (node.element !== 'screen') return;
+      const all = descendants(node);
+      const waiting = all.some(
+        (child) => child.element === 'feedback' && attribute(child, 'when') === 'after-submit',
+      );
+      const hasSubmit = all.some(
+        (child) => child.element === 'action' && attribute(child, 'intent') === 'submit',
+      );
+      if (waiting && !hasSubmit) {
+        report(
+          'A <feedback> waits for a submit, but this screen has no submit action. Add one, or remove when="after-submit".',
           path,
         );
       }

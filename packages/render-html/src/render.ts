@@ -131,6 +131,9 @@ function renderSection(node: ElementNode, depth: number, offset: number, context
       case 'feedback':
         parts.push(renderFeedback(child));
         break;
+      case 'result':
+        parts.push(renderResult(child, context));
+        break;
       case 'section':
         parts.push(renderSection(child, depth + 1, offset, context));
         break;
@@ -213,9 +216,28 @@ function renderAction(node: ElementNode): string {
 
 function renderFeedback(node: ElementNode): string {
   const tone = readString(node, 'tone', 'info') ?? 'info';
+  const afterSubmit = readString(node, 'when', 'always') === 'after-submit';
   return `<div${attrs({
     class: 'ts-feedback',
     'data-tone': tone,
+    'data-when': afterSubmit ? 'after-submit' : undefined,
+    hidden: afterSubmit,
     role: tone === 'error' ? 'alert' : 'status',
   })}>${text(node)}</div>`;
+}
+
+/** The value is empty until the host app fills it in; the dash tells people it is not ready yet. */
+function renderResult(node: ElementNode, context: Context): string {
+  const name = readString(node, 'name', 'result') ?? 'result';
+  const label = escape(readString(node, 'label', name) ?? name);
+  const unit = readString(node, 'unit');
+  const labelId = uniqueId(context, 'result', name, 'label');
+  return (
+    `<div${attrs({ class: 'ts-result', 'data-result': name })}>` +
+    `<span${attrs({ class: 'ts-label', id: labelId })}>${label}</span>` +
+    `<span class="ts-result-value">` +
+    `<output${attrs({ class: 'ts-output', name, 'aria-labelledby': labelId })}>\u2014</output>` +
+    (unit ? `<span class="ts-unit">${escape(unit)}</span>` : '') +
+    `</span></div>`
+  );
 }

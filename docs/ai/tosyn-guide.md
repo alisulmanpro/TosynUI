@@ -1,4 +1,4 @@
-# Writing user interfaces in Tosyn 0.1
+# Writing user interfaces in Tosyn 0.2
 
 Tosyn is an intent language for user interfaces. You describe what each part of a screen does and how important it is. You never describe how it looks: renderers and design rules decide colours, spacing, typography and layout, so every screen stays consistent and accessible.
 
@@ -26,7 +26,7 @@ Tosyn is an intent language for user interfaces. You describe what each part of 
 
   <section name="result">
     <heading>Your result</heading>
-    <feedback tone="info">Your BMI will appear here.</feedback>
+    <result name="bmi" label="Your BMI" />
     <text tone="muted">BMI is a screening measure, not a diagnosis.</text>
   </section>
 </screen>
@@ -50,7 +50,7 @@ A region of the screen that groups content serving one goal.
 
 Sections may be nested. Heading levels are derived from section depth, so authors never choose a heading level by hand.
 
-- Content: `<section>`, `<heading>`, `<text>`, `<field>`, `<action>`, `<feedback>`
+- Content: `<section>`, `<heading>`, `<text>`, `<field>`, `<action>`, `<feedback>`, `<result>`
 - `name`: kebab-case identifier (required, unique within the screen). Stable, kebab-case identifier for the section. Unique within the screen.
 - `emphasis`: `default` | `featured` | `subdued` (default `default`). How strongly the section should stand out from its siblings.
 
@@ -100,10 +100,22 @@ Describe what happens with `intent` and how important it is with `importance`; n
 
 A message that reports a result, status or problem to the user.
 
-Pick `tone` by meaning, not by colour. Renderers announce feedback to assistive technology.
+Pick `tone` by meaning, not by colour. Renderers announce feedback to assistive technology. Do not show a success message from the start: give it `when="after-submit"`.
 
 - Content: text only
 - `tone`: `info` | `success` | `warning` | `error` (required). The meaning of the message.
+- `when`: `always` | `after-submit` (default `always`). When the message is shown. Use `after-submit` for a message that appears only after the user submits, such as a success message.
+
+### `<result>`
+
+A value the screen works out and shows after the user submits, such as a total or a recommendation.
+
+Give it a `label` that names the value. Never write the value itself: the app fills it in. Use `unit` for measured values instead of writing the unit into the label.
+
+- Content: none
+- `name`: kebab-case identifier (required, unique within the screen). Stable identifier for the value. Unique within the screen.
+- `label`: text (required). Visible label that names the value.
+- `unit`: text. Unit of measurement for the value, such as `kg`, `mm` or `PKR`.
 
 ## Design rules
 
@@ -119,4 +131,6 @@ Errors make a screen invalid. Fix warnings unless you have a clear reason not to
 - **target-requires-navigate** (warning): Use target only on navigate actions. Only navigation has a destination; on other intents the target is ignored.
 - **delete-not-primary** (warning): Do not make delete actions primary. Destructive actions should take a deliberate choice, not be the most inviting option on screen.
 - **submit-needs-field** (warning): Place submit actions in a section that has fields. A submit action sends the values of the fields around it. Without fields there is nothing to send.
+- **result-needs-submit** (warning): Use a result only on a screen that has a submit action. A result is the value the screen works out after the user submits. Without a submit action it never has a value to show.
+- **after-submit-needs-submit** (warning): Use when="after-submit" only on a screen that has a submit action. A message that waits for a submit never appears if nothing on the screen can be submitted.
 - **concise-action-label** (warning): Keep action labels to 5 words or fewer. Short labels are faster to scan and fit on small screens.

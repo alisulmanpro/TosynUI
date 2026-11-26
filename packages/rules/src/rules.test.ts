@@ -135,4 +135,49 @@ describe('rules', () => {
       ),
     ).toEqual([]);
   });
+
+  describe('result-needs-submit', () => {
+    it('warns when a result has no submit action on the screen', () => {
+      expect(
+        codes(
+          screen(
+            '<section name="a"><heading>A</heading><result name="total" label="Total" /></section>',
+          ),
+        ),
+      ).toEqual(['result-needs-submit']);
+    });
+
+    it('accepts a result when a submit action exists, even in another section', () => {
+      expect(
+        codes(
+          screen(
+            '<section name="a"><heading>A</heading><field name="x" label="X" /><action intent="submit" importance="primary">Go</action></section>' +
+              '<section name="b"><heading>B</heading><result name="total" label="Total" /></section>',
+          ),
+        ),
+      ).toEqual([]);
+    });
+  });
+
+  describe('after-submit-needs-submit', () => {
+    it('warns when a message waits for a submit that cannot happen', () => {
+      expect(
+        codes(
+          screen(
+            '<section name="a"><heading>A</heading><feedback tone="success" when="after-submit">Sent</feedback></section>',
+          ),
+        ),
+      ).toEqual(['after-submit-needs-submit']);
+    });
+
+    it('accepts a waiting message when a submit action exists', () => {
+      expect(
+        codes(
+          screen(
+            '<section name="a"><heading>A</heading><field name="x" label="X" /><feedback tone="success" when="after-submit">Sent</feedback><action intent="submit" importance="primary">Send</action></section>',
+          ),
+        ),
+      ).toEqual([]);
+    });
+  });
 });

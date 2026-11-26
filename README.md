@@ -26,7 +26,7 @@ There are no classes, colours or sizes in that markup, and there cannot be: the 
 them. The renderer produces native HTML with derived heading levels, labelled inputs, a form, and
 styles from design tokens, in light or dark mode.
 
-> **Status: v0.1, early.** The language has seven elements. Everything below works and is tested,
+> **Status: language 0.2, early.** The language has eight elements. Everything below works and is tested,
 > but the vocabulary is deliberately small; see [Testing with AI](docs/testing-with-ai.md) for how
 > to find out what to add next. Design decisions are recorded in [docs/adr](docs/adr).
 

@@ -1,5 +1,5 @@
 {
-  "tosyn": "0.1",
+  "tosyn": "0.2",
   "root": {
     "element": "screen",
     "attributes": {
@@ -9,12 +9,26 @@
     "children": [
       {
         "element": "section",
-        "attributes": { "name": "inputs", "emphasis": "featured" },
+        "attributes": {
+          "name": "inputs",
+          "emphasis": "featured"
+        },
         "children": [
-          { "element": "heading", "children": [{ "text": "BMI calculator" }] },
+          {
+            "element": "heading",
+            "children": [
+              {
+                "text": "BMI calculator"
+              }
+            ]
+          },
           {
             "element": "text",
-            "children": [{ "text": "Enter your height and weight to see your BMI." }]
+            "children": [
+              {
+                "text": "Enter your height and weight to see your BMI."
+              }
+            ]
           },
           {
             "element": "field",
@@ -38,30 +52,61 @@
           },
           {
             "element": "action",
-            "attributes": { "intent": "submit", "importance": "primary" },
-            "children": [{ "text": "Calculate BMI" }]
+            "attributes": {
+              "intent": "submit",
+              "importance": "primary"
+            },
+            "children": [
+              {
+                "text": "Calculate BMI"
+              }
+            ]
           },
           {
             "element": "action",
-            "attributes": { "intent": "reset", "importance": "tertiary" },
-            "children": [{ "text": "Clear" }]
+            "attributes": {
+              "intent": "reset",
+              "importance": "tertiary"
+            },
+            "children": [
+              {
+                "text": "Clear"
+              }
+            ]
           }
         ]
       },
       {
         "element": "section",
-        "attributes": { "name": "result" },
+        "attributes": {
+          "name": "result"
+        },
         "children": [
-          { "element": "heading", "children": [{ "text": "Your result" }] },
           {
-            "element": "feedback",
-            "attributes": { "tone": "info" },
-            "children": [{ "text": "Your BMI will appear here." }]
+            "element": "heading",
+            "children": [
+              {
+                "text": "Your result"
+              }
+            ]
+          },
+          {
+            "element": "result",
+            "attributes": {
+              "name": "bmi",
+              "label": "Your BMI"
+            }
           },
           {
             "element": "text",
-            "attributes": { "tone": "muted" },
-            "children": [{ "text": "BMI is a screening measure, not a diagnosis." }]
+            "attributes": {
+              "tone": "muted"
+            },
+            "children": [
+              {
+                "text": "BMI is a screening measure, not a diagnosis."
+              }
+            ]
           }
         ]
       }
