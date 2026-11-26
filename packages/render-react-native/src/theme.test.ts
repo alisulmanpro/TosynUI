@@ -35,6 +35,7 @@ describe('createTheme', () => {
 
   it('explains unknown brands and tokens', () => {
     expect(() => createTheme('light', 'gold')).toThrow(/Use one of: ocean, forest/);
+    expect(() => createTheme('light', 'constructor')).toThrow(/Unknown brand "constructor"/);
     expect(() => createTheme('light').color('nope')).toThrow(TokenError);
     expect(() => createTheme('light').space('accent')).toThrow(/no dimension token/);
   });

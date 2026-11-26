@@ -51,7 +51,8 @@ export function createTheme(
 ): TosynTheme {
   let chosen: Brand | undefined;
   if (brand) {
-    chosen = brands[brand];
+    // Own keys only, so a name like "constructor" is not taken for a brand.
+    chosen = Object.hasOwn(brands, brand) ? brands[brand] : undefined;
     if (!chosen) {
       throw new TokenError(
         `Unknown brand "${brand}". Use one of: ${Object.keys(brands).join(', ')}.`,
