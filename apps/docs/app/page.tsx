@@ -1,7 +1,7 @@
 import { rules } from '@tosynui/rules';
 import { catalog } from '@tosynui/spec';
 import type { AttributeDefinition } from '@tosynui/spec';
-import { playgroundUrl } from './site';
+import { docsUrl, playgroundUrl } from './site';
 
 /** Renders `backtick` spans from catalog text as inline code. */
 function InlineText({ children }: { children: string }) {
@@ -13,6 +13,10 @@ function InlineText({ children }: { children: string }) {
 function describeType(attribute: AttributeDefinition): string {
   return attribute.type === 'enum' ? (attribute.values ?? []).join(' | ') : attribute.type;
 }
+
+const CURL_EXAMPLE = `curl -X POST ${docsUrl}/api/check \\
+  -H "Content-Type: application/json" \\
+  -d '{"markup": "<screen name=\\"demo\\" purpose=\\"Say hello.\\"><section name=\\"main\\"><heading>Hello</heading></section></screen>"}'`;
 
 export default function Page() {
   const elements = Object.entries(catalog.elements);
@@ -47,6 +51,9 @@ export default function Page() {
           ))}
           <li>
             <a href="#design-rules">Design rules</a>
+          </li>
+          <li>
+            <a href="#api">HTTP API</a>
           </li>
         </ul>
       </nav>
@@ -128,6 +135,56 @@ export default function Page() {
             ))}
           </tbody>
         </table>
+      </section>
+      <section id="api" aria-labelledby="api-title">
+        <h2 id="api-title">HTTP API</h2>
+        <p>
+          Check and render Tosyn from any tool that can send a request. Both endpoints take JSON,
+          are open to any website, and need no account.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Endpoint</th>
+              <th scope="col">Send</th>
+              <th scope="col">Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <code>POST /api/check</code>
+              </th>
+              <td>
+                <code>markup</code>
+              </td>
+              <td>
+                200 with <code>valid</code>, error and warning counts and every finding with its
+                line, column and how to fix it. Invalid markup is a normal answer.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <code>POST /api/render</code>
+              </th>
+              <td>
+                <code>markup</code>, and optionally <code>theme</code> (light, dark, system) and{' '}
+                <code>brand</code> (ocean, forest)
+              </td>
+              <td>
+                200 with a complete HTML page in <code>html</code>. Markup with errors is not
+                rendered: 422 with the findings.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <pre>
+          <code>{CURL_EXAMPLE}</code>
+        </pre>
+        <p>
+          Markup is limited to 50,000 characters. Wrong requests get 400 or 413 with an{' '}
+          <code>error</code> message that says what to change.
+        </p>
       </section>
     </main>
   );
