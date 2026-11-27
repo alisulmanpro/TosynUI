@@ -214,6 +214,12 @@ importers:
 
   apps/docs:
     dependencies:
+      '@fontsource-variable/inter':
+        specifier: 5.3.0
+        version: 5.3.0
+      '@fontsource-variable/space-grotesk':
+        specifier: 5.3.0
+        version: 5.3.0
       '@tosynui/ai':
         specifier: workspace:*
         version: link:../../packages/ai
@@ -229,6 +235,9 @@ importers:
       '@tosynui/spec':
         specifier: workspace:*
         version: link:../../packages/spec
+      '@tosynui/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
       next:
         specifier: 16.3.5
         version: 16.3.5(@babel/core@7.29.13(supports-color@10.2.2))(@playwright/test@1.63.0)(@types/node@24.0.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1239,6 +1248,12 @@ packages:
   '@expo/xcpretty@4.4.7':
     resolution: {integrity: sha512-EbxYllZ7/ozONVZd425cm4XnolfW+AmSFT5aP7Jdno6oc3WrYQcHz2CO20z/2rwWwYgztmV2PXvYH+BQ8YFjqg==}
     hasBin: true
+
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
+
+  '@fontsource-variable/space-grotesk@5.3.0':
+    resolution: {integrity: sha512-2IxmvfB08i9vnGB3Ym/AXvhRE+8XOjWMXIyDum03c+tPwH0FUoMNQfGpU8NXPxjbws0Vvss3AH0Zqt4oJBBAdw==}
 
   '@humanfs/core@0.19.2':
     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
@@ -4932,6 +4947,10 @@ snapshots:
       '@babel/code-frame': 7.29.7
       chalk: 4.1.2
       js-yaml: 4.3.2
+
+  '@fontsource-variable/inter@5.3.0': {}
+
+  '@fontsource-variable/space-grotesk@5.3.0': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

@@ -12,6 +12,13 @@ export interface ChangelogEntry {
 
 export const changelog: readonly ChangelogEntry[] = [
   {
+    version: 'Next release (0.3.0)',
+    changes: [
+      'New website, built with Tosyn itself: a Home page, a Docs page with every element, attribute and design rule, a For AI page with the writing guide, `/llms.txt`, the HTTP API and the MCP server, and this changelog, in a light Violet design.',
+      'The reference moved from `/` to `/docs`, and the HTTP API reference from `/#api` to `/for-ai#http-api`. `/llms.txt` links to the new addresses.',
+    ],
+  },
+  {
     version: '0.2.0',
     changes: [
       'Language 0.2: added the `result` element (a value the screen works out after submit) and `feedback when="after-submit"`, with two new design rules, `result-needs-submit` and `after-submit-needs-submit`.',

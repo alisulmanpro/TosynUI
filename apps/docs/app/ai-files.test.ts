@@ -29,6 +29,12 @@ describe('llms.txt', () => {
     expect(links.every((link) => link.startsWith('https://'))).toBe(true);
   });
 
+  it('links the pages that exist: the reference at /docs and the API at /for-ai', () => {
+    expect(text).toContain(`${docsUrl}/docs`);
+    expect(text).toContain(`${docsUrl}/for-ai#http-api`);
+    expect(text).not.toContain(`${docsUrl}/#api`);
+  });
+
   it('is served as plain text that browsers show instead of downloading', async () => {
     const response = getLlms();
     expect(response.headers.get('content-type')).toBe('text/plain; charset=utf-8');
