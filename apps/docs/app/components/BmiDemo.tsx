@@ -1,6 +1,7 @@
 'use client';
 
 import type { FormEvent } from 'react';
+import type { Mark } from '../marks';
 
 /**
  * The BMI calculator from `content.ts`, drawn by Tosyn and made to work.
@@ -9,7 +10,7 @@ import type { FormEvent } from 'react';
  * it is submitted, so this component does the sum itself. Replace it when render-html can call a
  * handler and fill a `result`.
  */
-export function BmiDemo({ html }: { html: string }) {
+export function BmiDemo({ html, mark }: { html: string; mark: Mark }) {
   function onSubmit(event: FormEvent<HTMLDivElement>) {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
@@ -23,6 +24,7 @@ export function BmiDemo({ html }: { html: string }) {
   return (
     <div
       className="blk blk-demo"
+      {...mark}
       onSubmit={onSubmit}
       // The markup is checked at build time and comes from content.ts, so the HTML is trusted.
       dangerouslySetInnerHTML={{ __html: html }}

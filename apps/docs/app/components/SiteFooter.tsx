@@ -1,3 +1,4 @@
+import { plain } from '../marks';
 import { footerColumns } from '../nav';
 import { Logo } from './Logo';
 
@@ -9,7 +10,7 @@ import { Logo } from './Logo';
  */
 export function SiteFooter() {
   return (
-    <footer className="footer container">
+    <footer className="footer container" {...plain('footer', 'Footer')}>
       <div className="footer-top">
         <div className="footer-about">
           <Logo height={30} />

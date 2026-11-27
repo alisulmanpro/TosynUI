@@ -7,6 +7,7 @@ import { CodeBlock } from '../components/CodeBlock';
 import { InlineText } from '../components/InlineText';
 import { TosynBlock } from '../components/TosynBlock';
 import { docs, signInExample } from '../content';
+import { plain } from '../marks';
 import { mcpGuideUrl } from '../nav';
 import { playgroundUrl } from '../site';
 
@@ -58,7 +59,7 @@ export default function DocsPage() {
   return (
     <div className="container docs-layout">
       {/* TOSYN-TODO(module: navigation): plain TS for now. Replace with the Tosyn navigation and search elements. */}
-      <nav className="docs-side" aria-label="Docs">
+      <nav className="docs-side" aria-label="Docs" {...plain('navigation', 'Docs sidebar')}>
         {sideGroups.map((group) => (
           <div className="side-group" key={group.title}>
             <h2>{group.title}</h2>
@@ -75,7 +76,7 @@ export default function DocsPage() {
 
       <div className="docs-main">
         <div>
-          <p className="crumb">
+          <p className="crumb" {...plain('navigation', 'Breadcrumb')}>
             <a href="/">Tosyn</a> / Language reference
           </p>
           <TosynBlock
@@ -89,39 +90,42 @@ export default function DocsPage() {
         <section id="elements" className="doc-section" aria-label="The eight elements">
           <TosynBlock markup={docs.elements} idPrefix="elements-" className="blk-section" />
           {/* TOSYN-TODO(module: table): plain TS for now. Replace with the Tosyn table element. */}
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Element</th>
-                  <th scope="col">Purpose</th>
-                  <th scope="col">Attributes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {elements.map(([name, element]) => (
-                  <tr key={name}>
-                    <th scope="row">
-                      <code>&lt;{name}&gt;</code>
-                    </th>
-                    <td>
-                      <InlineText>{element.summary}</InlineText>
-                    </td>
-                    <td>
-                      {Object.keys(element.attributes).length > 0
-                        ? Object.keys(element.attributes).join(', ')
-                        : 'none'}
-                    </td>
+          <div className="mark-box" {...plain('table', 'Elements table')}>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Element</th>
+                    <th scope="col">Purpose</th>
+                    <th scope="col">Attributes</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {elements.map(([name, element]) => (
+                    <tr key={name}>
+                      <th scope="row">
+                        <code>&lt;{name}&gt;</code>
+                      </th>
+                      <td>
+                        <InlineText>{element.summary}</InlineText>
+                      </td>
+                      <td>
+                        {Object.keys(element.attributes).length > 0
+                          ? Object.keys(element.attributes).join(', ')
+                          : 'none'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
         <section id="details" className="doc-section" aria-label="Element details">
           <TosynBlock markup={docs.details} idPrefix="details-" className="blk-section" />
-          <div className="details">
+          {/* TOSYN-TODO(module: disclosure): plain TS for now. Replace with a Tosyn disclosure element. */}
+          <div className="details" {...plain('disclosure', 'Collapsible element list')}>
             {elements.map(([name, element]) => {
               const attributes = Object.entries(element.attributes);
               return (
@@ -190,41 +194,43 @@ export default function DocsPage() {
         <section id="rules" className="doc-section" aria-label="Design rules">
           <TosynBlock markup={docs.rules} idPrefix="rules-" className="blk-section" />
           {/* TOSYN-TODO(module: table): plain TS for now. Replace with the Tosyn table element. */}
-          <div className="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Rule</th>
-                  <th scope="col">Level</th>
-                  <th scope="col">What it asks</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rules.map((rule) => (
-                  <tr key={rule.id}>
-                    <th scope="row">
-                      <code>{rule.id}</code>
-                    </th>
-                    <td>
-                      <span className="level" data-level={rule.severity}>
-                        {rule.severity === 'error' ? 'Error' : 'Warning'}
-                      </span>
-                    </td>
-                    <td>
-                      {rule.summary}
-                      <span className="note">{rule.rationale}</span>
-                    </td>
+          <div className="mark-box" {...plain('table', 'Rules table')}>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Rule</th>
+                    <th scope="col">Level</th>
+                    <th scope="col">What it asks</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rules.map((rule) => (
+                    <tr key={rule.id}>
+                      <th scope="row">
+                        <code>{rule.id}</code>
+                      </th>
+                      <td>
+                        <span className="level" data-level={rule.severity}>
+                          {rule.severity === 'error' ? 'Error' : 'Warning'}
+                        </span>
+                      </td>
+                      <td>
+                        {rule.summary}
+                        <span className="note">{rule.rationale}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
         <section id="brands" className="doc-section" aria-label="Tokens and brands">
           <TosynBlock markup={docs.brands} idPrefix="brands-" className="blk-section" />
           {/* TOSYN-TODO(module: swatch): plain TS for now. Replace with a Tosyn swatch or token preview element. */}
-          <div className="swatches">
+          <div className="swatches" {...plain('swatch', 'Brand swatches')}>
             {swatches.map((swatch) => (
               <div className="swatch" key={swatch.id}>
                 <i style={{ background: swatch.accent }} />
@@ -245,7 +251,7 @@ export default function DocsPage() {
         </section>
       </div>
 
-      <nav className="docs-toc" aria-label="On this page">
+      <nav className="docs-toc" aria-label="On this page" {...plain('navigation', 'On this page')}>
         <h2>On this page</h2>
         <ul>
           {tocLinks.map((link) => (

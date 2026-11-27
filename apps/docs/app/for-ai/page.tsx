@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { CodeBlock } from '../components/CodeBlock';
 import { TosynBlock } from '../components/TosynBlock';
 import { forAi } from '../content';
+import { plain } from '../marks';
 import { CURL_EXAMPLE, CURL_SHORT, MCP_COMMAND } from '../examples';
 import { mcpGuideUrl } from '../nav';
 import { docsUrl } from '../site';
@@ -51,7 +52,10 @@ export default function ForAiPage() {
 
       <section className="section" aria-label="How a model uses Tosyn">
         {/* TOSYN-TODO(module: layout): plain TS for now. Replace with a Tosyn layout or grid element. */}
-        <div className="steps">
+        <div
+          className="steps"
+          {...plain('layout', 'Three-column layout (the texts in it are Tosyn)')}
+        >
           {forAi.steps.map((markup, index) => (
             <div className="step" key={index}>
               <span className="step-number">0{index + 1}</span>
@@ -60,6 +64,7 @@ export default function ForAiPage() {
                 idPrefix={`step-${index}-`}
                 headingLevel={2}
                 className="blk-step"
+                nested
               />
             </div>
           ))}
@@ -68,7 +73,10 @@ export default function ForAiPage() {
 
       <section className="section" aria-label="Tools for AI">
         {/* TOSYN-TODO(module: layout): plain TS for now. Replace with a Tosyn layout or grid element. */}
-        <div className="cards">
+        <div
+          className="cards"
+          {...plain('layout', 'Two-by-two card layout (the headings and texts in it are Tosyn)')}
+        >
           {cards.map((card) => (
             <div className="card" key={card.key}>
               <TosynBlock
@@ -76,6 +84,7 @@ export default function ForAiPage() {
                 idPrefix={`card-${card.key}-`}
                 headingLevel={2}
                 className="blk-card"
+                nested
               />
               <CodeBlock source={card.code} label={`${card.link.label}: example`} />
               <a className="card-link" href={card.link.href}>
@@ -89,43 +98,45 @@ export default function ForAiPage() {
       <section id="http-api" className="section doc-section" aria-label="HTTP API reference">
         <TosynBlock markup={forAi.apiSection} idPrefix="api-" className="blk-section" />
         {/* TOSYN-TODO(module: table): plain TS for now. Replace with the Tosyn table element. */}
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Endpoint</th>
-                <th scope="col">Send</th>
-                <th scope="col">Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <code>POST /api/check</code>
-                </th>
-                <td>
-                  <code>markup</code>
-                </td>
-                <td>
-                  200 with <code>valid</code>, error and warning counts and every finding with its
-                  line, column and how to fix it. Invalid markup is a normal answer.
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">
-                  <code>POST /api/render</code>
-                </th>
-                <td>
-                  <code>markup</code>, and optionally <code>theme</code> (light, dark, system) and{' '}
-                  <code>brand</code> (ocean, forest)
-                </td>
-                <td>
-                  200 with a complete HTML page in <code>html</code>. Markup with errors is not
-                  rendered: 422 with the findings.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="mark-box" {...plain('table', 'API table')}>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Endpoint</th>
+                  <th scope="col">Send</th>
+                  <th scope="col">Answer</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <code>POST /api/check</code>
+                  </th>
+                  <td>
+                    <code>markup</code>
+                  </td>
+                  <td>
+                    200 with <code>valid</code>, error and warning counts and every finding with its
+                    line, column and how to fix it. Invalid markup is a normal answer.
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <code>POST /api/render</code>
+                  </th>
+                  <td>
+                    <code>markup</code>, and optionally <code>theme</code> (light, dark, system) and{' '}
+                    <code>brand</code> (ocean, forest)
+                  </td>
+                  <td>
+                    200 with a complete HTML page in <code>html</code>. Markup with errors is not
+                    rendered: 422 with the findings.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <CodeBlock source={CURL_EXAMPLE} label="A check request that works as written" />
         <p className="release-next-note">

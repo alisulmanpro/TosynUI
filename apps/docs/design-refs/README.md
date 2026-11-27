@@ -23,6 +23,17 @@ The pictures have dashed outlines with a small label on each part.
 - **Amber dashed outline: plain TypeScript for now.** The library cannot draw this part yet. It is
   written as an ordinary React component or markup, and it must be replaced when the module arrives.
 
+## Seeing the marking on the live site
+
+Every page can show the same marking. Press **Show build marks** (bottom right of any page), or open
+a page with `?marks=1`. The outlines and their labels appear on the real parts, and the choice is
+remembered in the browser. Tosyn parts list the elements they use, for example
+`Written in Tosyn: heading, text, action`. Plain TS parts name what they are, for example
+`Navigation bar: plain TS`.
+
+In the code, a Tosyn block marks itself (`TosynBlock`) and a plain TS part is marked with
+`plain('module', 'Label')` from `app/marks.ts`. The module name must be listed in `BUILD-MAP.md`.
+
 ## The TOSYN-TODO convention
 
 Every plain TypeScript part carries one comment in the code:

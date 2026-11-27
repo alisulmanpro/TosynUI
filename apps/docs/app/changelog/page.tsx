@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { InlineText } from '../components/InlineText';
 import { TosynBlock } from '../components/TosynBlock';
 import { changelogIntro } from '../content';
+import { plain } from '../marks';
 import { changelog } from './entries';
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function ChangelogPage() {
   return (
     <div className="container">
       <section className="hero" style={{ textAlign: 'left' }} aria-label="Introduction">
-        <p className="crumb">
+        <p className="crumb" {...plain('navigation', 'Breadcrumb')}>
           <a href="/">Tosyn</a> / Changelog
         </p>
         <TosynBlock
@@ -28,7 +29,7 @@ export default function ChangelogPage() {
         />
       </section>
 
-      <section className="section" aria-label="Releases">
+      <section className="section" aria-label="Releases" {...plain('timeline', 'Release list')}>
         {/* TOSYN-TODO(module: timeline): plain TS for now. Replace with a Tosyn list or timeline element. */}
         {changelog.map((entry, index) => (
           // A numbered id: the version text can hold spaces, which aria-labelledby reads as several ids.

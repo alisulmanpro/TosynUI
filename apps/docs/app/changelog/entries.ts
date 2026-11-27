@@ -15,6 +15,7 @@ export const changelog: readonly ChangelogEntry[] = [
     version: 'Next release (0.3.0)',
     changes: [
       'New website, built with Tosyn itself: a Home page, a Docs page with every element, attribute and design rule, a For AI page with the writing guide, `/llms.txt`, the HTTP API and the MCP server, and this changelog, in a light Violet design.',
+      'Added a "Show build marks" button to the website (or open any page with `?marks=1`). It outlines each part in violet when it is written in Tosyn and in amber when it is plain TypeScript for now.',
       'The reference moved from `/` to `/docs`, and the HTTP API reference from `/#api` to `/for-ai#http-api`. `/llms.txt` links to the new addresses.',
     ],
   },

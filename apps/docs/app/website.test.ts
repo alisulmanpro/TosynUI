@@ -8,6 +8,7 @@ import { brandSwatches } from './brand-swatches';
 import { allBlocks } from './content';
 import { checkMarkup } from './api/_shared/tosyn';
 import { tokenizeMarkup } from './highlight';
+import { elementsUsed, plain, tosyn } from './marks';
 import { footerColumns, mainLinks } from './nav';
 import { renderBlock } from './tosyn-block';
 
@@ -150,11 +151,29 @@ describe('TOSYN-TODO comments', () => {
   it('names a module that the build map lists', () => {
     const modules = new Set<string>();
     for (const file of sourceFiles(root)) {
-      for (const match of readFileSync(file, 'utf8').matchAll(/TOSYN-TODO\(module: ([^)]+)\)/g)) {
+      const source = readFileSync(file, 'utf8');
+      for (const match of source.matchAll(/TOSYN-TODO\(module: ([^)]+)\)/g)) {
         modules.add(match[1]!);
       }
+      // A part marked as plain TS must name the module it waits for, too.
+      for (const match of source.matchAll(/plain\('([^']+)'/g)) modules.add(match[1]!);
     }
     expect(modules.size).toBeGreaterThan(0);
     for (const name of modules) expect(buildMap, name).toContain(`\`${name}\``);
+  });
+});
+
+describe('build marks', () => {
+  it('lists the Tosyn elements a block uses, without screen and section', () => {
+    expect(elementsUsed(allBlocks()[2]!)).toEqual(['heading', 'text', 'action']);
+  });
+
+  it('labels plain and Tosyn parts', () => {
+    expect(plain('navigation', 'Navigation bar')).toEqual({
+      'data-made': 'plain',
+      'data-made-label': 'Navigation bar: plain TS',
+      'data-module': 'navigation',
+    });
+    expect(tosyn(['heading', 'text'])['data-made-label']).toBe('Written in Tosyn: heading, text');
   });
 });

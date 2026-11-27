@@ -26,6 +26,8 @@ error or a warning fails the tests and the build.
 | `badge`                | The small label above the headline                 | home, for AI       | A badge element.                                                                                     |
 | `window frame`         | The window around the code and the live demo       | home               | A frame element in the renderer.                                                                     |
 | `swatch`               | Brand colour swatches                              | docs               | A swatch or token-preview element.                                                                   |
+| `disclosure`           | Collapsible list of element details                | docs               | A disclosure (collapsible) element.                                                                  |
+| `toggle`               | The "Show build marks" button                      | all pages          | A switch element.                                                                                    |
 | `timeline`             | Release list                                       | changelog          | A list or timeline element.                                                                          |
 | `submit handling`      | Making the BMI demo calculate                      | home               | A way for `render-html` to run code on submit and fill a `result`.                                   |
 | `render-html fragment` | `renderBlock` rewrites `<main>` and heading levels | all pages          | Options in `render-html` for a plain container instead of `<main>`, and for the first heading level. |

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { tokenizeMarkup } from '../highlight';
+import { plain } from '../marks';
 
 interface CodeBlockProps {
   /** The code to show and to copy. */
@@ -30,7 +31,7 @@ export function CodeBlock({ source, language = 'text', label }: CodeBlockProps) 
   }
 
   return (
-    <div className="code">
+    <div className="code" {...plain('code element', 'Code block with copy button')}>
       <pre tabIndex={0} aria-label={label}>
         <code>
           {source.split('\n').map((line, index) => (

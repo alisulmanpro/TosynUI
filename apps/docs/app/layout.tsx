@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/space-grotesk';
 import { stylesheet } from '@tosynui/render-html';
 import './globals.css';
+import { BuildMarks } from './components/BuildMarks';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteNav } from './components/SiteNav';
 import { docsUrl } from './site';
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <SiteNav />
           <main id="main">{children}</main>
           <SiteFooter />
+          <BuildMarks />
         </div>
       </body>
     </html>

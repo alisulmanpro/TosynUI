@@ -971,6 +971,147 @@ code {
   content: '';
 }
 
+/* Build marks: dashed outlines that show what is written in Tosyn and what is plain TS for now. */
+.window-mark {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.mark-box {
+  min-width: 0;
+}
+
+.marks-ui {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: end;
+}
+
+.marks-ui button {
+  min-height: 44px;
+  padding: 0 1.125rem;
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  background: var(--site-ink);
+  box-shadow: 0 8px 24px rgb(23 20 31 / 25%);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.marks-ui button[aria-pressed='true'] {
+  background: var(--site-brand);
+}
+
+.marks-legend {
+  display: grid;
+  gap: 0.375rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--site-line);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgb(23 20 31 / 15%);
+  font-size: 0.8125rem;
+}
+
+.marks-legend p {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  margin: 0;
+}
+
+.marks-legend i {
+  width: 24px;
+  height: 0;
+  border-top: 2px dashed;
+}
+
+.marks-legend i[data-kind='tosyn'] {
+  border-color: #7c3aed;
+}
+
+.marks-legend i[data-kind='plain'] {
+  border-color: #d97706;
+}
+
+html[data-marks='on'] .site {
+  padding-top: 40px;
+}
+
+html[data-marks='on'] [data-made] {
+  --mark: #d97706;
+  --mark-label: #fdba3b;
+  --mark-ink: #2a1a00;
+
+  position: relative;
+  border-radius: 6px;
+  outline: 1.5px dashed var(--mark);
+  outline-offset: 8px;
+}
+
+html[data-marks='on'] [data-made='tosyn'] {
+  --mark: #7c3aed;
+  --mark-label: #7c3aed;
+  --mark-ink: #ffffff;
+}
+
+html[data-marks='on'] [data-made]::before {
+  position: absolute;
+  bottom: 100%;
+  left: -8px;
+  z-index: 20;
+  margin-bottom: 9px;
+  padding: 5px 9px;
+  border-radius: 6px 6px 0 0;
+  color: var(--mark-ink);
+  background: var(--mark-label);
+  font-family: 'Inter Variable', Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  content: attr(data-made-label);
+}
+
+html[data-marks='on'] .docs-side[data-made],
+html[data-marks='on'] .docs-toc[data-made] {
+  position: sticky;
+}
+
+html[data-marks='on'] .section,
+html[data-marks='on'] .doc-section {
+  margin-top: clamp(6rem, 12vw, 10rem);
+}
+
+html[data-marks='on'] .doc-section {
+  gap: 3.5rem;
+}
+
+html[data-marks='on'] .stack {
+  gap: 3rem;
+}
+
+html[data-marks='on'] .window-body .code[data-made]::before {
+  top: 12px;
+  right: 5rem;
+  bottom: auto;
+  left: auto;
+  margin: 0;
+  border-radius: 6px;
+}
+
+html[data-marks='on'] .docs-main {
+  gap: 7rem;
+}
+
 @media (max-width: 62rem) {
   .docs-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -979,6 +1120,11 @@ code {
   .docs-side,
   .docs-toc {
     position: static;
+  }
+
+  html[data-marks='on'] .docs-side[data-made],
+  html[data-marks='on'] .docs-toc[data-made] {
+    position: relative;
   }
 
   .window-body,

@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { plain } from '../marks';
 import { mainLinks, playgroundLink } from '../nav';
 import { Logo } from './Logo';
 
@@ -12,7 +13,7 @@ import { Logo } from './Logo';
 export function SiteNav() {
   const pathname = usePathname();
   return (
-    <nav className="nav container" aria-label="Main">
+    <nav className="nav container" aria-label="Main" {...plain('navigation', 'Navigation bar')}>
       <a href="/" className="nav-home" aria-label="Tosyn home">
         <Logo height={30} />
       </a>
